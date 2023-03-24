@@ -71,6 +71,7 @@ Public Class FaceModel
     End Sub
 
     Public Sub saveTrainingImage(ByVal lbl As String)
+        System.IO.Directory.CreateDirectory("TrainingImages")
         Dim path As String = Directory.GetCurrentDirectory() & "\TrainingImages"
         Dim grayImageResult As New Mat
         CvInvoke.CvtColor(resultImage, grayImageResult, ColorConversion.Bgr2Gray)

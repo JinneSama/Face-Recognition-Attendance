@@ -7,7 +7,7 @@ Public Class FaceRecog
     Private Delegate Sub UpdateListInvoker(ByVal StringList As List(Of String))
 
     Private SchedList As New List(Of DataRow)
-
+    Private _current As String = ""
     Private timeOutCamera As DateTime
     Private _startDetection As Boolean = False
     Private Sub FaceRecog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -117,7 +117,7 @@ Public Class FaceRecog
 
     Private Sub BunifuThinButton220_Click(sender As Object, e As EventArgs) Handles BunifuThinButton220.Click
         If Not FaceRecognizer.fModel.isTrained Then
-            MsgBox("Please Wait for the Model to be Trained")
+            MsgBox("Please Wait for the Model to be Trained" & vbCrLf & "or No Training Images Detected!")
             Return
         End If
         Dim nquery As String = "select name,code,time_in,time_out from subject where Room='" & BunifuCustomDataGrid4.SelectedRows.Item(0).Cells.Item(0).Value.ToString() & "'"
@@ -145,7 +145,7 @@ Public Class FaceRecog
                     Me.Invoke(Sub() refreshLabel(item.Item(0).ToString()))
                     If Not _startDetection Then
                         Me.Invoke(Sub() startDetection(item.Item(1).ToString()))
-                        
+                        _current = "Insert into attendanceschedule (subjectCode, dateSet) values ('" & item.Item(1).ToString() & "','" & DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") & "')"
                         _startDetection = True
                     End If
                 End If
@@ -177,6 +177,9 @@ Public Class FaceRecog
     End Sub
 
     Private Sub FaceRecog_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If Not _current = "" Then
+            SQLConnection.executeCommand(_current)
+        End If
         SchedList.Clear()
         If BackgroundWorker2.IsBusy Then
             BackgroundWorker2.CancelAsync()

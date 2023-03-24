@@ -16,7 +16,8 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>publish\</PublishUrl>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\Benevolent God\Desktop\ATMOS V10\ATMOS V2\ATMOS V2\publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -26,10 +27,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -71,6 +72,18 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\x64\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>5778345224CB621243BFC4A65D04F356F330FDAE</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>ATMOS V2_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
@@ -125,6 +138,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminPassword.Designer.vb">
+      <DependentUpon>AdminPassword.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPassword.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="CaptureImage.Designer.vb">
       <DependentUpon>CaptureImage.vb</DependentUpon>
     </Compile>
@@ -170,6 +189,9 @@
     <Compile Include="SQLConnection.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AdminPassword.resx">
+      <DependentUpon>AdminPassword.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CaptureImage.resx">
       <DependentUpon>CaptureImage.vb</DependentUpon>
     </EmbeddedResource>
@@ -190,6 +212,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ATMOS V2_TemporaryKey.pfx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -269,17 +292,13 @@
     <None Include="Resources\text %281%29.gif" />
     <None Include="Resources\loading-waiting.gif" />
     <None Include="Resources\loading-loading-forever.gif" />
-    <None Include="haarcascade_frontalface_alt.xml">
+    <None Include="bin\Debug\haarcascade_frontalface_alt.xml" />
+    <Content Include="haarcascade_frontalface_alt.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="License-LGPL.txt" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>

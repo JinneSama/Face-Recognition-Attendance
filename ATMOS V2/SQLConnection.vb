@@ -1,9 +1,10 @@
 ﻿Imports System.Data
+Imports System.IO
 Imports MySql.Data
 Imports MySql.Data.MySqlClient
 
 Public Class SQLConnection
-    Private Shared connString As String = My.Computer.FileSystem.ReadAllText(Application.StartupPath & "\connstring.txt")
+    Private Shared connString As String
     Public Shared sqlConnection As New MySqlConnection
 
     Public itemListTB As New DataTable
@@ -11,6 +12,15 @@ Public Class SQLConnection
     Public itemListDT As New DataTable
 
     Public Sub New()
+        Dim filePath As String = Application.StartupPath & "\connstring.txt"
+
+        If Not File.Exists(filePath) Then
+            Using sw As StreamWriter = File.CreateText(filePath)
+                sw.WriteLine("Server=localhost;Port=3306;User=root;Password=root;Database=atmos")
+            End Using
+        End If
+
+        connString = My.Computer.FileSystem.ReadAllText(Application.StartupPath & "\connstring.txt")
         connectToDatabase()
     End Sub
 

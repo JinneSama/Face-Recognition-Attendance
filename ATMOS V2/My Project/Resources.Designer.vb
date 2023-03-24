@@ -91,6 +91,30 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        '''&lt;!--
+        '''    Stump-based 20x20 gentle adaboost frontal face detector.
+        '''    Created by Rainer Lienhart.
+        '''
+        '''////////////////////////////////////////////////////////////////////////////////////////
+        '''
+        '''  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
+        '''
+        '''  By downloading, copying, installing or using the software you agree to this license.
+        '''  If you do not agree to this license, do not download, install,
+        '''  copy or use the software.
+        '''
+        '''
+        '''                        Intel License Agreement
+        '''   [rest of string was truncated]&quot;;.
+        '''</summary>
+        Friend ReadOnly Property haarcascade_frontalface_alt() As String
+            Get
+                Return ResourceManager.GetString("haarcascade_frontalface_alt", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property icons8_add_new_96() As System.Drawing.Bitmap

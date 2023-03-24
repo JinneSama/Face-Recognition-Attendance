@@ -6,9 +6,9 @@ Public Class CaptureImage
 
     Private pbList As List(Of PictureBox)
 
-    Private images As ImageList
-    Private imagesToSave As ImageList
-    Private imageNames As New List(Of ListViewItem)
+    Public images As ImageList
+    Public imagesToSave As ImageList
+    Public imageNames As New List(Of ListViewItem)
     Private imageCounter As Integer = 0
 
     Private imageCount As Integer
@@ -42,7 +42,6 @@ Public Class CaptureImage
         imagesToSave = New ImageList
         imagesToSave.ImageSize = New Point(200, 200)
 
-        imageNames.Clear()
         ListView1.Items.Clear()
 
         images.ImageSize = New Point(64, 64)
@@ -84,6 +83,7 @@ Public Class CaptureImage
         imagesToSave.Images.Add(PictureBox2.Image)
         ListView1.LargeImageList = images
         ListView1.Items.Add(New ListViewItem(id & "_" & s) With {.ImageIndex = images.Images.Count - 1})
+        imageNames.Add(New ListViewItem(id & "_" & s) With {.ImageIndex = images.Images.Count - 1})
         'ListView1.Items.AddRange(imageNames.ToArray)
     End Sub
 
@@ -95,26 +95,15 @@ Public Class CaptureImage
             End If
         Next
 
-        For i As Integer = 0 To ListView1.Items.Count - 1
-            saveTrainingImage(ListView1.Items(i).Text, imagesToSave.Images(i))
-        Next
-
         If type = "Register" Then
             MainForm.RefreshRegisterImage()
         Else
             MainForm.RefreshListImage()
         End If
-        MsgBox("Images Saved")
+        MsgBox("Added To List!")
     End Sub
 
-    Public Sub saveTrainingImage(ByVal lbl As String, img As Image)
-        Dim path As String = Directory.GetCurrentDirectory() & "\TrainingImages"
-        Dim saveGrayImage As Image = img
-        If File.Exists(path & "\" + lbl + ".jpg") Then
-            File.Delete(path & "\" + lbl + ".jpg")
-        End If
-        saveGrayImage.Save(path & "\" + lbl + ".jpg", Imaging.ImageFormat.Jpeg)
-    End Sub
+
 
     Private Sub BunifuThinButton24_Click(sender As Object, e As EventArgs) Handles BunifuThinButton24.Click
         If type = "Register" Then

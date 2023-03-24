@@ -25,6 +25,7 @@ Partial Class CaptureImage
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CaptureImage))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.BunifuThinButton24 = New ns1.BunifuThinButton2()
         Me.BunifuThinButton23 = New ns1.BunifuThinButton2()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ListView1 = New System.Windows.Forms.ListView()
@@ -38,7 +39,6 @@ Partial Class CaptureImage
         Me.BunifuImageButton1 = New ns1.BunifuImageButton()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.BunifuDragControl1 = New ns1.BunifuDragControl(Me.components)
-        Me.BunifuThinButton24 = New ns1.BunifuThinButton2()
         Me.Panel1.SuspendLayout()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -49,7 +49,7 @@ Partial Class CaptureImage
         '
         'Panel1
         '
-        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(75, Byte), Integer))
+        Me.Panel1.BackColor = System.Drawing.Color.Gray
         Me.Panel1.Controls.Add(Me.BunifuThinButton24)
         Me.Panel1.Controls.Add(Me.BunifuThinButton23)
         Me.Panel1.Controls.Add(Me.Label1)
@@ -69,16 +69,41 @@ Partial Class CaptureImage
         Me.Panel1.Size = New System.Drawing.Size(1151, 423)
         Me.Panel1.TabIndex = 0
         '
+        'BunifuThinButton24
+        '
+        Me.BunifuThinButton24.ActiveBorderThickness = 1
+        Me.BunifuThinButton24.ActiveCornerRadius = 20
+        Me.BunifuThinButton24.ActiveFillColor = System.Drawing.Color.Black
+        Me.BunifuThinButton24.ActiveForecolor = System.Drawing.Color.White
+        Me.BunifuThinButton24.ActiveLineColor = System.Drawing.Color.Black
+        Me.BunifuThinButton24.BackColor = System.Drawing.Color.Gray
+        Me.BunifuThinButton24.BackgroundImage = CType(resources.GetObject("BunifuThinButton24.BackgroundImage"), System.Drawing.Image)
+        Me.BunifuThinButton24.ButtonText = "Capture Profile"
+        Me.BunifuThinButton24.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.BunifuThinButton24.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BunifuThinButton24.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BunifuThinButton24.IdleBorderThickness = 1
+        Me.BunifuThinButton24.IdleCornerRadius = 20
+        Me.BunifuThinButton24.IdleFillColor = System.Drawing.Color.Transparent
+        Me.BunifuThinButton24.IdleForecolor = System.Drawing.Color.WhiteSmoke
+        Me.BunifuThinButton24.IdleLineColor = System.Drawing.Color.Black
+        Me.BunifuThinButton24.Location = New System.Drawing.Point(443, 358)
+        Me.BunifuThinButton24.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BunifuThinButton24.Name = "BunifuThinButton24"
+        Me.BunifuThinButton24.Size = New System.Drawing.Size(180, 38)
+        Me.BunifuThinButton24.TabIndex = 38
+        Me.BunifuThinButton24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'BunifuThinButton23
         '
         Me.BunifuThinButton23.ActiveBorderThickness = 1
         Me.BunifuThinButton23.ActiveCornerRadius = 20
-        Me.BunifuThinButton23.ActiveFillColor = System.Drawing.Color.Transparent
-        Me.BunifuThinButton23.ActiveForecolor = System.Drawing.Color.Black
-        Me.BunifuThinButton23.ActiveLineColor = System.Drawing.Color.SeaGreen
-        Me.BunifuThinButton23.BackColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(75, Byte), Integer))
+        Me.BunifuThinButton23.ActiveFillColor = System.Drawing.Color.Black
+        Me.BunifuThinButton23.ActiveForecolor = System.Drawing.Color.White
+        Me.BunifuThinButton23.ActiveLineColor = System.Drawing.Color.Black
+        Me.BunifuThinButton23.BackColor = System.Drawing.Color.Gray
         Me.BunifuThinButton23.BackgroundImage = CType(resources.GetObject("BunifuThinButton23.BackgroundImage"), System.Drawing.Image)
-        Me.BunifuThinButton23.ButtonText = "Save Images"
+        Me.BunifuThinButton23.ButtonText = "Add to List"
         Me.BunifuThinButton23.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BunifuThinButton23.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BunifuThinButton23.ForeColor = System.Drawing.Color.WhiteSmoke
@@ -86,9 +111,9 @@ Partial Class CaptureImage
         Me.BunifuThinButton23.IdleCornerRadius = 20
         Me.BunifuThinButton23.IdleFillColor = System.Drawing.Color.Transparent
         Me.BunifuThinButton23.IdleForecolor = System.Drawing.Color.WhiteSmoke
-        Me.BunifuThinButton23.IdleLineColor = System.Drawing.Color.SeaGreen
+        Me.BunifuThinButton23.IdleLineColor = System.Drawing.Color.Black
         Me.BunifuThinButton23.Location = New System.Drawing.Point(958, 376)
-        Me.BunifuThinButton23.Margin = New System.Windows.Forms.Padding(4)
+        Me.BunifuThinButton23.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BunifuThinButton23.Name = "BunifuThinButton23"
         Me.BunifuThinButton23.Size = New System.Drawing.Size(180, 38)
         Me.BunifuThinButton23.TabIndex = 37
@@ -158,10 +183,10 @@ Partial Class CaptureImage
         '
         Me.BunifuThinButton22.ActiveBorderThickness = 1
         Me.BunifuThinButton22.ActiveCornerRadius = 20
-        Me.BunifuThinButton22.ActiveFillColor = System.Drawing.Color.Transparent
-        Me.BunifuThinButton22.ActiveForecolor = System.Drawing.Color.Black
-        Me.BunifuThinButton22.ActiveLineColor = System.Drawing.Color.SeaGreen
-        Me.BunifuThinButton22.BackColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(75, Byte), Integer))
+        Me.BunifuThinButton22.ActiveFillColor = System.Drawing.Color.Black
+        Me.BunifuThinButton22.ActiveForecolor = System.Drawing.Color.Transparent
+        Me.BunifuThinButton22.ActiveLineColor = System.Drawing.Color.Black
+        Me.BunifuThinButton22.BackColor = System.Drawing.Color.Gray
         Me.BunifuThinButton22.BackgroundImage = CType(resources.GetObject("BunifuThinButton22.BackgroundImage"), System.Drawing.Image)
         Me.BunifuThinButton22.ButtonText = "Start Camera"
         Me.BunifuThinButton22.Cursor = System.Windows.Forms.Cursors.Hand
@@ -171,9 +196,9 @@ Partial Class CaptureImage
         Me.BunifuThinButton22.IdleCornerRadius = 20
         Me.BunifuThinButton22.IdleFillColor = System.Drawing.Color.Transparent
         Me.BunifuThinButton22.IdleForecolor = System.Drawing.Color.WhiteSmoke
-        Me.BunifuThinButton22.IdleLineColor = System.Drawing.Color.SeaGreen
+        Me.BunifuThinButton22.IdleLineColor = System.Drawing.Color.Black
         Me.BunifuThinButton22.Location = New System.Drawing.Point(443, 285)
-        Me.BunifuThinButton22.Margin = New System.Windows.Forms.Padding(4)
+        Me.BunifuThinButton22.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BunifuThinButton22.Name = "BunifuThinButton22"
         Me.BunifuThinButton22.Size = New System.Drawing.Size(180, 38)
         Me.BunifuThinButton22.TabIndex = 28
@@ -183,10 +208,10 @@ Partial Class CaptureImage
         '
         Me.BunifuThinButton21.ActiveBorderThickness = 1
         Me.BunifuThinButton21.ActiveCornerRadius = 20
-        Me.BunifuThinButton21.ActiveFillColor = System.Drawing.Color.Transparent
-        Me.BunifuThinButton21.ActiveForecolor = System.Drawing.Color.Black
-        Me.BunifuThinButton21.ActiveLineColor = System.Drawing.Color.SeaGreen
-        Me.BunifuThinButton21.BackColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(75, Byte), Integer))
+        Me.BunifuThinButton21.ActiveFillColor = System.Drawing.Color.Black
+        Me.BunifuThinButton21.ActiveForecolor = System.Drawing.Color.White
+        Me.BunifuThinButton21.ActiveLineColor = System.Drawing.Color.Black
+        Me.BunifuThinButton21.BackColor = System.Drawing.Color.Gray
         Me.BunifuThinButton21.BackgroundImage = CType(resources.GetObject("BunifuThinButton21.BackgroundImage"), System.Drawing.Image)
         Me.BunifuThinButton21.ButtonText = "Capture Train Image"
         Me.BunifuThinButton21.Cursor = System.Windows.Forms.Cursors.Hand
@@ -196,9 +221,9 @@ Partial Class CaptureImage
         Me.BunifuThinButton21.IdleCornerRadius = 20
         Me.BunifuThinButton21.IdleFillColor = System.Drawing.Color.Transparent
         Me.BunifuThinButton21.IdleForecolor = System.Drawing.Color.WhiteSmoke
-        Me.BunifuThinButton21.IdleLineColor = System.Drawing.Color.SeaGreen
+        Me.BunifuThinButton21.IdleLineColor = System.Drawing.Color.Black
         Me.BunifuThinButton21.Location = New System.Drawing.Point(443, 322)
-        Me.BunifuThinButton21.Margin = New System.Windows.Forms.Padding(4)
+        Me.BunifuThinButton21.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BunifuThinButton21.Name = "BunifuThinButton21"
         Me.BunifuThinButton21.Size = New System.Drawing.Size(180, 38)
         Me.BunifuThinButton21.TabIndex = 27
@@ -207,6 +232,7 @@ Partial Class CaptureImage
         'PictureBox2
         '
         Me.PictureBox2.BackColor = System.Drawing.Color.White
+        Me.PictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PictureBox2.Location = New System.Drawing.Point(418, 12)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(240, 195)
@@ -231,6 +257,7 @@ Partial Class CaptureImage
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.White
+        Me.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(400, 400)
@@ -244,31 +271,6 @@ Partial Class CaptureImage
         Me.BunifuDragControl1.Horizontal = True
         Me.BunifuDragControl1.TargetControl = Me.Panel1
         Me.BunifuDragControl1.Vertical = True
-        '
-        'BunifuThinButton24
-        '
-        Me.BunifuThinButton24.ActiveBorderThickness = 1
-        Me.BunifuThinButton24.ActiveCornerRadius = 20
-        Me.BunifuThinButton24.ActiveFillColor = System.Drawing.Color.Transparent
-        Me.BunifuThinButton24.ActiveForecolor = System.Drawing.Color.Black
-        Me.BunifuThinButton24.ActiveLineColor = System.Drawing.Color.SeaGreen
-        Me.BunifuThinButton24.BackColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(75, Byte), Integer))
-        Me.BunifuThinButton24.BackgroundImage = CType(resources.GetObject("BunifuThinButton24.BackgroundImage"), System.Drawing.Image)
-        Me.BunifuThinButton24.ButtonText = "Capture Profile"
-        Me.BunifuThinButton24.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BunifuThinButton24.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BunifuThinButton24.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BunifuThinButton24.IdleBorderThickness = 1
-        Me.BunifuThinButton24.IdleCornerRadius = 20
-        Me.BunifuThinButton24.IdleFillColor = System.Drawing.Color.Transparent
-        Me.BunifuThinButton24.IdleForecolor = System.Drawing.Color.WhiteSmoke
-        Me.BunifuThinButton24.IdleLineColor = System.Drawing.Color.SeaGreen
-        Me.BunifuThinButton24.Location = New System.Drawing.Point(443, 358)
-        Me.BunifuThinButton24.Margin = New System.Windows.Forms.Padding(4)
-        Me.BunifuThinButton24.Name = "BunifuThinButton24"
-        Me.BunifuThinButton24.Size = New System.Drawing.Size(180, 38)
-        Me.BunifuThinButton24.TabIndex = 38
-        Me.BunifuThinButton24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'CaptureImage
         '

@@ -23,7 +23,7 @@ Partial Class LoginForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim Animation4 As BunifuAnimatorNS.Animation = New BunifuAnimatorNS.Animation()
+        Dim Animation2 As BunifuAnimatorNS.Animation = New BunifuAnimatorNS.Animation()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(LoginForm))
         Me.BunifuTransition1 = New BunifuAnimatorNS.BunifuTransition(Me.components)
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -33,16 +33,13 @@ Partial Class LoginForm
         Me.Label3 = New System.Windows.Forms.Label()
         Me.BunifuMaterialTextbox2 = New ns1.BunifuMaterialTextbox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.BunifuMaterialTextbox1 = New ns1.BunifuMaterialTextbox()
-        Me.BunifuImageButton1 = New ns1.BunifuImageButton()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.BunifuCircleProgressbar1 = New ns1.BunifuCircleProgressbar()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.BunifuImageButton1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -50,37 +47,36 @@ Partial Class LoginForm
         '
         Me.BunifuTransition1.AnimationType = BunifuAnimatorNS.AnimationType.ScaleAndRotate
         Me.BunifuTransition1.Cursor = Nothing
-        Animation4.AnimateOnlyDifferences = True
-        Animation4.BlindCoeff = CType(resources.GetObject("Animation4.BlindCoeff"), System.Drawing.PointF)
-        Animation4.LeafCoeff = 0!
-        Animation4.MaxTime = 1.0!
-        Animation4.MinTime = 0!
-        Animation4.MosaicCoeff = CType(resources.GetObject("Animation4.MosaicCoeff"), System.Drawing.PointF)
-        Animation4.MosaicShift = CType(resources.GetObject("Animation4.MosaicShift"), System.Drawing.PointF)
-        Animation4.MosaicSize = 0
-        Animation4.Padding = New System.Windows.Forms.Padding(30)
-        Animation4.RotateCoeff = 0.5!
-        Animation4.RotateLimit = 0.2!
-        Animation4.ScaleCoeff = CType(resources.GetObject("Animation4.ScaleCoeff"), System.Drawing.PointF)
-        Animation4.SlideCoeff = CType(resources.GetObject("Animation4.SlideCoeff"), System.Drawing.PointF)
-        Animation4.TimeCoeff = 0!
-        Animation4.TransparencyCoeff = 0!
-        Me.BunifuTransition1.DefaultAnimation = Animation4
+        Animation2.AnimateOnlyDifferences = True
+        Animation2.BlindCoeff = CType(resources.GetObject("Animation2.BlindCoeff"), System.Drawing.PointF)
+        Animation2.LeafCoeff = 0!
+        Animation2.MaxTime = 1.0!
+        Animation2.MinTime = 0!
+        Animation2.MosaicCoeff = CType(resources.GetObject("Animation2.MosaicCoeff"), System.Drawing.PointF)
+        Animation2.MosaicShift = CType(resources.GetObject("Animation2.MosaicShift"), System.Drawing.PointF)
+        Animation2.MosaicSize = 0
+        Animation2.Padding = New System.Windows.Forms.Padding(30)
+        Animation2.RotateCoeff = 0.5!
+        Animation2.RotateLimit = 0.2!
+        Animation2.ScaleCoeff = CType(resources.GetObject("Animation2.ScaleCoeff"), System.Drawing.PointF)
+        Animation2.SlideCoeff = CType(resources.GetObject("Animation2.SlideCoeff"), System.Drawing.PointF)
+        Animation2.TimeCoeff = 0!
+        Animation2.TransparencyCoeff = 0!
+        Me.BunifuTransition1.DefaultAnimation = Animation2
         Me.BunifuTransition1.MaxAnimationTime = 2000
         Me.BunifuTransition1.TimeStep = 0.03!
         '
         'Panel1
         '
+        Me.Panel1.BackColor = System.Drawing.Color.White
         Me.Panel1.Controls.Add(Me.ComboBox1)
         Me.Panel1.Controls.Add(Me.Label4)
         Me.Panel1.Controls.Add(Me.BunifuThinButton21)
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Controls.Add(Me.BunifuMaterialTextbox2)
         Me.Panel1.Controls.Add(Me.Label2)
-        Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.BunifuMaterialTextbox1)
-        Me.Panel1.Controls.Add(Me.BunifuImageButton1)
         Me.BunifuTransition1.SetDecoration(Me.Panel1, BunifuAnimatorNS.DecorationType.None)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
@@ -95,7 +91,7 @@ Partial Class LoginForm
         Me.ComboBox1.Font = New System.Drawing.Font("Consolas", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Items.AddRange(New Object() {"Admin", "Faculty"})
-        Me.ComboBox1.Location = New System.Drawing.Point(35, 384)
+        Me.ComboBox1.Location = New System.Drawing.Point(30, 251)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(305, 27)
         Me.ComboBox1.TabIndex = 12
@@ -107,7 +103,7 @@ Partial Class LoginForm
         Me.BunifuTransition1.SetDecoration(Me.Label4, BunifuAnimatorNS.DecorationType.None)
         Me.Label4.Font = New System.Drawing.Font("Consolas", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Label4.Location = New System.Drawing.Point(31, 351)
+        Me.Label4.Location = New System.Drawing.Point(26, 216)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(126, 19)
         Me.Label4.TabIndex = 11
@@ -117,10 +113,10 @@ Partial Class LoginForm
         '
         Me.BunifuThinButton21.ActiveBorderThickness = 1
         Me.BunifuThinButton21.ActiveCornerRadius = 50
-        Me.BunifuThinButton21.ActiveFillColor = System.Drawing.Color.SeaGreen
+        Me.BunifuThinButton21.ActiveFillColor = System.Drawing.Color.Black
         Me.BunifuThinButton21.ActiveForecolor = System.Drawing.Color.Transparent
-        Me.BunifuThinButton21.ActiveLineColor = System.Drawing.Color.SeaGreen
-        Me.BunifuThinButton21.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.BunifuThinButton21.ActiveLineColor = System.Drawing.Color.Black
+        Me.BunifuThinButton21.BackColor = System.Drawing.Color.White
         Me.BunifuThinButton21.BackgroundImage = CType(resources.GetObject("BunifuThinButton21.BackgroundImage"), System.Drawing.Image)
         Me.BunifuThinButton21.ButtonText = "Login"
         Me.BunifuThinButton21.Cursor = System.Windows.Forms.Cursors.Hand
@@ -130,9 +126,9 @@ Partial Class LoginForm
         Me.BunifuThinButton21.IdleBorderThickness = 1
         Me.BunifuThinButton21.IdleCornerRadius = 50
         Me.BunifuThinButton21.IdleFillColor = System.Drawing.Color.Transparent
-        Me.BunifuThinButton21.IdleForecolor = System.Drawing.Color.SeaGreen
-        Me.BunifuThinButton21.IdleLineColor = System.Drawing.Color.SeaGreen
-        Me.BunifuThinButton21.Location = New System.Drawing.Point(61, 443)
+        Me.BunifuThinButton21.IdleForecolor = System.Drawing.Color.Black
+        Me.BunifuThinButton21.IdleLineColor = System.Drawing.Color.Black
+        Me.BunifuThinButton21.Location = New System.Drawing.Point(61, 469)
         Me.BunifuThinButton21.Margin = New System.Windows.Forms.Padding(5)
         Me.BunifuThinButton21.Name = "BunifuThinButton21"
         Me.BunifuThinButton21.Size = New System.Drawing.Size(247, 60)
@@ -145,7 +141,7 @@ Partial Class LoginForm
         Me.BunifuTransition1.SetDecoration(Me.Label3, BunifuAnimatorNS.DecorationType.None)
         Me.Label3.Font = New System.Drawing.Font("Consolas", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Label3.Location = New System.Drawing.Point(31, 266)
+        Me.Label3.Location = New System.Drawing.Point(26, 383)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(90, 19)
         Me.Label3.TabIndex = 8
@@ -164,7 +160,7 @@ Partial Class LoginForm
         Me.BunifuMaterialTextbox2.LineIdleColor = System.Drawing.Color.Gray
         Me.BunifuMaterialTextbox2.LineMouseHoverColor = System.Drawing.Color.Blue
         Me.BunifuMaterialTextbox2.LineThickness = 3
-        Me.BunifuMaterialTextbox2.Location = New System.Drawing.Point(35, 289)
+        Me.BunifuMaterialTextbox2.Location = New System.Drawing.Point(30, 410)
         Me.BunifuMaterialTextbox2.Margin = New System.Windows.Forms.Padding(4)
         Me.BunifuMaterialTextbox2.Name = "BunifuMaterialTextbox2"
         Me.BunifuMaterialTextbox2.Size = New System.Drawing.Size(305, 44)
@@ -177,31 +173,19 @@ Partial Class LoginForm
         Me.BunifuTransition1.SetDecoration(Me.Label2, BunifuAnimatorNS.DecorationType.None)
         Me.Label2.Font = New System.Drawing.Font("Consolas", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(31, 190)
+        Me.Label2.Location = New System.Drawing.Point(26, 297)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(90, 19)
         Me.Label2.TabIndex = 6
         Me.Label2.Text = "Username:"
         '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.BunifuTransition1.SetDecoration(Me.Label1, BunifuAnimatorNS.DecorationType.None)
-        Me.Label1.Font = New System.Drawing.Font("Consolas", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(161, 151)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(54, 19)
-        Me.Label1.TabIndex = 4
-        Me.Label1.Text = "Login"
-        '
         'PictureBox1
         '
         Me.BunifuTransition1.SetDecoration(Me.PictureBox1, BunifuAnimatorNS.DecorationType.None)
-        Me.PictureBox1.Image = Global.ATMOS_V2.My.Resources.Resources.icons8_male_user_96
-        Me.PictureBox1.Location = New System.Drawing.Point(138, 48)
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(30, 12)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(100, 100)
+        Me.PictureBox1.Size = New System.Drawing.Size(319, 191)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 3
         Me.PictureBox1.TabStop = False
@@ -219,30 +203,16 @@ Partial Class LoginForm
         Me.BunifuMaterialTextbox1.LineIdleColor = System.Drawing.Color.Gray
         Me.BunifuMaterialTextbox1.LineMouseHoverColor = System.Drawing.Color.Blue
         Me.BunifuMaterialTextbox1.LineThickness = 3
-        Me.BunifuMaterialTextbox1.Location = New System.Drawing.Point(35, 213)
+        Me.BunifuMaterialTextbox1.Location = New System.Drawing.Point(30, 324)
         Me.BunifuMaterialTextbox1.Margin = New System.Windows.Forms.Padding(4)
         Me.BunifuMaterialTextbox1.Name = "BunifuMaterialTextbox1"
         Me.BunifuMaterialTextbox1.Size = New System.Drawing.Size(305, 44)
         Me.BunifuMaterialTextbox1.TabIndex = 1
         Me.BunifuMaterialTextbox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
         '
-        'BunifuImageButton1
-        '
-        Me.BunifuImageButton1.BackColor = System.Drawing.Color.Transparent
-        Me.BunifuTransition1.SetDecoration(Me.BunifuImageButton1, BunifuAnimatorNS.DecorationType.None)
-        Me.BunifuImageButton1.Image = Global.ATMOS_V2.My.Resources.Resources.icons8_close_96
-        Me.BunifuImageButton1.ImageActive = Nothing
-        Me.BunifuImageButton1.Location = New System.Drawing.Point(329, 12)
-        Me.BunifuImageButton1.Name = "BunifuImageButton1"
-        Me.BunifuImageButton1.Size = New System.Drawing.Size(37, 32)
-        Me.BunifuImageButton1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.BunifuImageButton1.TabIndex = 0
-        Me.BunifuImageButton1.TabStop = False
-        Me.BunifuImageButton1.Visible = False
-        Me.BunifuImageButton1.Zoom = 10
-        '
         'Panel2
         '
+        Me.Panel2.BackColor = System.Drawing.Color.Gray
         Me.Panel2.Controls.Add(Me.BunifuCircleProgressbar1)
         Me.BunifuTransition1.SetDecoration(Me.Panel2, BunifuAnimatorNS.DecorationType.None)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
@@ -282,7 +252,7 @@ Partial Class LoginForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 19.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.Gray
         Me.ClientSize = New System.Drawing.Size(378, 543)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel2)
@@ -290,6 +260,7 @@ Partial Class LoginForm
         Me.DoubleBuffered = True
         Me.Font = New System.Drawing.Font("Consolas", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
+        Me.KeyPreview = True
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "LoginForm"
@@ -298,16 +269,13 @@ Partial Class LoginForm
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.BunifuImageButton1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents BunifuTransition1 As BunifuAnimatorNS.BunifuTransition
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents BunifuImageButton1 As ns1.BunifuImageButton
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents Label1 As Label
     Friend WithEvents BunifuThinButton21 As ns1.BunifuThinButton2
     Friend WithEvents Label3 As Label
     Friend WithEvents BunifuMaterialTextbox2 As ns1.BunifuMaterialTextbox
