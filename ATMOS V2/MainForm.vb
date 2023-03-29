@@ -5,6 +5,7 @@ Imports AForge.Video.DirectShow
 Imports System.IO
 Imports System.Text
 Imports System.Drawing
+Imports System.Data
 
 Public Class MainForm
     Private videocapture As VideoCaptureDevice
@@ -113,7 +114,7 @@ Public Class MainForm
             saveTrainingImage(ListView1.Items(i).Text, imagesToSave.Images(i))
         Next
         MsgBox("Student Added!")
-
+        FTPControl.uploadAllFiles()
         BackgroundWorker1.RunWorkerAsync()
     End Sub
 
@@ -143,6 +144,7 @@ Public Class MainForm
         SQLConnection.executePhotoCommand(photoQuery, imgArray)
     End Sub
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        FTPControl.downloadAllFiles()
         BunifuCustomDataGrid2.RowHeadersVisible = False
         facemodel = New FaceModel(Nothing, Nothing, True)
         BunifuCustomDataGrid1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
@@ -248,6 +250,7 @@ Public Class MainForm
         For i As Integer = 0 To ListView2.Items.Count - 1
             saveTrainingImage(ListView2.Items(i).Text, imagesToSave.Images(i))
         Next
+        FTPControl.uploadAllFiles()
     End Sub
     Public Sub RefreshRegisterImage()
         imagesToSave = CaptureImage.imagesToSave
@@ -358,7 +361,7 @@ Public Class MainForm
     End Sub
 
     Private Sub EXITToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EXITToolStripMenuItem.Click
-        Application.Exit()
+        Me.Close()
     End Sub
 
     Private Sub CAPTUREToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CAPTUREToolStripMenuItem.Click
@@ -392,14 +395,30 @@ Public Class MainForm
         clearAddSubject()
     End Sub
 
+    Private Function checkIfOverlap(_code As String, _room As String, _timeIn As DateTime, _timeOut As DateTime)
+        Dim overlap As Boolean = False
+        Dim overlapDT As DataTable = SQLConnection.executeQuery("select * time_in,time_out from subject where Room='" & _room & "'")
+        For Each items As DataRow In overlapDT.Rows
+            Dim tIn As DateTime = Convert.ToDateTime(items.Item(0).ToString())
+            Dim tOut As DateTime = Convert.ToDateTime(items.Item(1).ToString())
+            If (_timeIn > tIn And _timeIn < tOut) Or (_timeOut > tIn And _timeOut < tOut) Then
+                overlap = True
+            End If
+        Next
+        Return True
+    End Function
     Private Sub BunifuThinButton213_Click(sender As Object, e As EventArgs) Handles BunifuThinButton213.Click
+        If checkIfOverlap(BunifuMaterialTextbox2.Text, BunifuMaterialTextbox16.Text, Convert.ToDateTime(DateTimePicker3.Value.ToString("HH:mm:ss")), Convert.ToDateTime(DateTimePicker4.Value.ToString("HH:mm:ss"))) Then
+            MsgBox("Time Overlap!")
+            Return
+        End If
         If editSubjectState Then
             Dim q As String = "Update subject set name='" & BunifuMaterialTextbox1.Text & "',time_in='" &
-                DateTimePicker3.Value.ToString("HH:mm:ss") & "',time_out='" & DateTimePicker4.Value.ToString("HH:mm:ss") & "',Mon='" & Convert.ToInt32(CheckBox6.Checked) &
-                "',Tue='" & Convert.ToInt32(CheckBox7.Checked) & "',Wed='" & Convert.ToInt32(CheckBox8.Checked) & "',Thu='" &
-                Convert.ToInt32(CheckBox9.Checked) & "',Fri='" & Convert.ToInt32(CheckBox10.Checked) & "',Sat='" &
-                Convert.ToInt32(CheckBox11.Checked) & "',Sun='" & Convert.ToInt32(CheckBox12.Checked) & "',Room='" &
-                BunifuMaterialTextbox16.Text & "' where code='" & BunifuMaterialTextbox2.Text & "'"
+                    DateTimePicker3.Value.ToString("HH:mm:ss") & "',time_out='" & DateTimePicker4.Value.ToString("HH:mm:ss") & "',Mon='" & Convert.ToInt32(CheckBox6.Checked) &
+                    "',Tue='" & Convert.ToInt32(CheckBox7.Checked) & "',Wed='" & Convert.ToInt32(CheckBox8.Checked) & "',Thu='" &
+                    Convert.ToInt32(CheckBox9.Checked) & "',Fri='" & Convert.ToInt32(CheckBox10.Checked) & "',Sat='" &
+                    Convert.ToInt32(CheckBox11.Checked) & "',Sun='" & Convert.ToInt32(CheckBox12.Checked) & "',Room='" &
+                    BunifuMaterialTextbox16.Text & "' where code='" & BunifuMaterialTextbox2.Text & "'"
             SQLConnection.executeCommand(q)
             editSubjectState = False
 
@@ -508,6 +527,10 @@ Public Class MainForm
     End Sub
 
     Private Sub BunifuThinButton215_Click(sender As Object, e As EventArgs) Handles BunifuThinButton215.Click
+        If checkDuplicateID(BunifuMaterialTextbox7.Text) Then
+            MsgBox("ID has Duplicate!")
+            Return
+        End If
         If BunifuMaterialTextbox5.Text = "" Or BunifuMaterialTextbox6.Text = "" Or BunifuMaterialTextbox7.Text = "" Then
             MsgBox("Please fill credentials first!")
         End If
@@ -855,7 +878,22 @@ Public Class MainForm
         PictureBox8.Image = bmp
     End Sub
 
+    Private Function checkDuplicateID(id As String)
+        Dim dup As Boolean = False
+        Dim idDT As DataTable = SQLConnection.executeQuery("Select ID from staff")
+        For Each items As DataRow In idDT.Rows
+            If id = items.Item(0).ToString() Then
+                dup = True
+            End If
+        Next
+        Return dup
+    End Function
+
     Private Sub BunifuThinButton227_Click(sender As Object, e As EventArgs) Handles BunifuThinButton227.Click
+        If checkDuplicateID(BunifuMaterialTextbox11.Text) Then
+            MsgBox("ID has Duplicate!")
+            Return
+        End If
         Dim query As String = "Update staff set Name='" & BunifuMaterialTextbox14.Text & "' , username='" & BunifuMaterialTextbox13.Text &
             "', password='" & BunifuMaterialTextbox12.Text & "', ID='" & BunifuMaterialTextbox11.Text & "' where ID='" & BunifuMaterialTextbox11.Text & "'"
         SQLConnection.executeCommand(query)
@@ -1005,67 +1043,58 @@ Public Class MainForm
     End Sub
 
     Private Sub BunifuThinButton224_Click(sender As Object, e As EventArgs) Handles BunifuThinButton224.Click
-        DataGridToCSV(BunifuCustomDataGrid7, " ")
+        saveToExcel()
     End Sub
-    Private Sub DataGridToCSV(ByRef dt As DataGridView, Qualifier As String)
-        Dim TempDirectory As String = "ExcelFiles"
-        Dim dir As String = System.IO.Directory.CreateDirectory(TempDirectory).FullName
-        Dim oWrite As IO.StreamWriter
-        Dim file As String = ComboBox1.Text & "_" & ComboBox2.Text & "_" & DateTime.Now.ToString("HH_mm_ss") & ".csv"
-        oWrite = IO.File.CreateText(dir & "\" & file)
+    Private Sub saveToExcel()
+        Dim xlApp As New Microsoft.Office.Interop.Excel.Application()
+        Dim xlWorkbook As Microsoft.Office.Interop.Excel.Workbook = xlApp.Workbooks.Open(Application.StartupPath & "/ExcelFiles/template.xlsx")
 
-        Dim CSV As StringBuilder = New StringBuilder()
+        Dim xlWorksheet As Microsoft.Office.Interop.Excel.Worksheet = xlWorkbook.ActiveSheet
 
-        Dim i As Integer = 1
-        Dim CSVHeader As StringBuilder = New StringBuilder()
-        For Each c As DataGridViewColumn In dt.Columns
-            If i = 1 Then
-                CSVHeader.Append(Qualifier & c.HeaderText.ToString() & Qualifier)
-            Else
-                CSVHeader.Append("," & Qualifier & c.HeaderText.ToString() & Qualifier)
-            End If
-            i += 1
+        xlWorksheet.Cells(1, 3) = "Instructor: " & ComboBox1.Text
+        xlWorksheet.Cells(2, 3) = "Subject Code: " & ComboBox2.Text
+        Dim q As DataTable = SQLConnection.executeQuery("Select Room from subject where code='" & ComboBox2.Text & "'")
+        xlWorksheet.Cells(3, 3) = "Room: " & q.Rows.Item(0).Item(0).ToString()
+
+        Dim colIndex As Integer = 4
+        For Each col As DataGridViewColumn In BunifuCustomDataGrid7.Columns
+            xlWorksheet.Cells(4, colIndex) = col.Name
+            colIndex += 1
         Next
 
-        'CSV.AppendLine(CSVHeader.ToString())
-        oWrite.WriteLine(CSVHeader.ToString())
-        oWrite.Flush()
-
-        For r As Integer = 0 To dt.Rows.Count - 1
-
-            Dim CSVLine As StringBuilder = New StringBuilder()
-            Dim s As String = ""
-            For c As Integer = 0 To dt.Columns.Count - 1
-                If c = 0 Then
-                    Dim val As String
-                    If dt.Rows.Item(r).Cells.Item(c).Value = Nothing Then
-                        val = ""
-                    Else
-                        val = dt.Rows.Item(r).Cells.Item(c).Value.ToString
-                    End If
-                    'CSVLine.Append(Qualifier & gridResults.Rows(r).Cells(c).Value.ToString() & Qualifier)
-                    s = s & Qualifier & val & Qualifier
-                Else
-                    'CSVLine.Append("," & Qualifier & gridResults.Rows(r).Cells(c).Value.ToString() & Qualifier)
-                    Dim val As String
-                    If dt.Rows.Item(r).Cells.Item(c).Value = Nothing Then
-                        val = ""
-                    Else
-                        val = dt.Rows.Item(r).Cells.Item(c).Value.ToString
-                    End If
-                    s = s & "," & Qualifier & val & Qualifier
-                End If
+        Dim rowIndex As Integer = 5
+        For Each row As DataGridViewRow In BunifuCustomDataGrid7.Rows
+            colIndex = 4
+            xlWorksheet.Cells(rowIndex, 3) = rowIndex - 4
+            For Each col As DataGridViewColumn In BunifuCustomDataGrid7.Columns
+                xlWorksheet.Cells(rowIndex, colIndex) = row.Cells(colIndex - 4).Value.ToString()
+                colIndex += 1
             Next
-            oWrite.WriteLine(s)
-            oWrite.Flush()
-            'CSV.AppendLine(CSVLine.ToString())
-            'CSVLine.Clear()
+            rowIndex += 1
         Next
-        'oWrite.Write(CSV.ToString())
-        oWrite.Close()
-        oWrite = Nothing
-        System.Diagnostics.Process.Start(TempDirectory & "\" & file)
-        GC.Collect()
+
+
+        Dim saveFileDialog As New SaveFileDialog()
+        saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx"
+        If saveFileDialog.ShowDialog() = DialogResult.OK Then
+            xlWorkbook.SaveAs(saveFileDialog.FileName)
+        End If
+
+        xlWorkbook.Close()
+        xlApp.Quit()
+        ReleaseObject(xlWorksheet)
+        ReleaseObject(xlWorkbook)
+        ReleaseObject(xlApp)
+    End Sub
+    Private Sub ReleaseObject(ByVal obj As Object)
+        Try
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(obj)
+            obj = Nothing
+        Catch ex As Exception
+            obj = Nothing
+        Finally
+            GC.Collect()
+        End Try
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork

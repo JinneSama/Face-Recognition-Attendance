@@ -19,7 +19,6 @@ Public Class SQLConnection
                 sw.WriteLine("Server=localhost;Port=3306;User=root;Password=root;Database=atmos")
             End Using
         End If
-
         connString = My.Computer.FileSystem.ReadAllText(Application.StartupPath & "\connstring.txt")
         connectToDatabase()
     End Sub

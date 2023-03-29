@@ -40,6 +40,8 @@ Public Class FaceModel
     Public useTrained As Boolean
     Public Event recordChanged(sender As Object, e As EventArgs)
 
+    Public distTreshold As Integer = Convert.ToInt64(My.Computer.FileSystem.ReadAllText(Application.StartupPath & "\treshold.txt"))
+
     Public Sub New(ByRef pb As PictureBox, ByRef facePB As PictureBox, ByVal trained As Boolean)
         _pb = pb
         _facePB = facePB
@@ -111,7 +113,7 @@ Public Class FaceModel
                 CvInvoke.EqualizeHist(grayImageResult, grayImageResult)
                 Dim PR = model.Predict(grayImageResult)
                 '  CvInvoke.PutText(gImg, PR.Distance.ToString(), New Drawing.Point(2, 15), FontFace.HersheyComplex, 0.5, New Bgr(Color.Orange).MCvScalar)
-                If PR.Label > 0 And PR.Distance < 8000 Then
+                If PR.Label > 0 And PR.Distance < distTreshold Then
                     CvInvoke.PutText(gImg, labelNames(PR.Label), rect.Location + New Drawing.Point(0, -3), FontFace.HersheyComplex, 0.5, New Bgr(Color.Orange).MCvScalar)
                     CvInvoke.Rectangle(gImg, rect, New Bgr(Color.Green).MCvScalar, 2)
                     If Not recordedStudents.Contains(labelNames(PR.Label)) Then

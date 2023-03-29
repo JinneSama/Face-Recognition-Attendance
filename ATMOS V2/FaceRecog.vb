@@ -187,4 +187,12 @@ Public Class FaceRecog
         End If
         FaceRecognizer.fModel.stopDetection()
     End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
+    End Sub
+
+    Private Sub BunifuThinButton23_Click(sender As Object, e As EventArgs) Handles BunifuThinButton23.Click
+        Treshold.Show()
+    End Sub
 End Class
