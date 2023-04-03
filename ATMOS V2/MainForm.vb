@@ -33,62 +33,29 @@ Public Class MainForm
     Public imagesToSave As ImageList
     Public imageNames As New List(Of ListViewItem)
     Private cbBoxContents As List(Of personDetail)
-    Private Sub BunifuTileButton1_Click(sender As Object, e As EventArgs) Handles FacultyTile.Click
-        BunifuTransition1.HideSync(FacultyTile)
-        BunifuTransition2.ShowSync(FacultyPanel)
-    End Sub
+    Private _dtForSubject As DataTable
+    Public _room As String = ""
 
-
-    Private Sub DefaultAll()
-        BunifuTransition2.HideSync(FacultyPanel)
-        BunifuTransition1.ShowSync(FacultyTile)
-
-        BunifuTransition1.HideSync(regStudentTile)
-        BunifuTransition1.HideSync(listStudentTile)
-        BunifuTransition2.ShowSync(studentTile)
-    End Sub
-
-    Private Sub BunifuTileButton2_Click(sender As Object, e As EventArgs) Handles studentTile.Click
-        BunifuTransition2.HideSync(studentTile)
-        BunifuTransition1.ShowSync(regStudentTile)
-        BunifuTransition1.ShowSync(listStudentTile)
-    End Sub
-
-    Public Sub numberring()
-        For rowNum As Integer = 0 To BunifuCustomDataGrid2.Rows.Count - 1
-            BunifuCustomDataGrid2.Rows(rowNum).HeaderCell.Value = (rowNum + 1).ToString
-        Next
-    End Sub
-    Private Sub bunifucustomdatagrid2_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles BunifuCustomDataGrid2.CellFormatting
-        'numberring()
-    End Sub
-
-
-    Private Sub BunifuImageButton1_Click(sender As Object, e As EventArgs)
-        DefaultAll()
-    End Sub
-
-    Private Sub Panel2_Click(sender As Object, e As EventArgs) Handles mainPanel.Click
-        DefaultAll()
-    End Sub
-
-    Private Sub BunifuTileButton6_Click(sender As Object, e As EventArgs) Handles BunifuTileButton6.Click
-        Me.Hide()
-        FaceRecog.Show()
-    End Sub
-
-    Private Sub regStudentTile_Click(sender As Object, e As EventArgs) Handles regStudentTile.Click
-        DefaultAll()
-        registerStudentPanel.Show()
-        BunifuTransition2.HideSync(mainPanel)
-    End Sub
-
-    Private Sub BunifuImageButton3_Click(sender As Object, e As EventArgs) Handles BunifuImageButton3.Click
-        mainPanel.Show()
+    Private Sub BunifuImageButton3_Click(sender As Object, e As EventArgs)
         BunifuTransition1.HideSync(registerStudentPanel)
     End Sub
 
+    Private Function checkDuplicateStudentD(id As String)
+        Dim dup As Boolean = False
+        Dim idDT As DataTable = SQLConnection.executeQuery("Select ID from student")
+        For Each items As DataRow In idDT.Rows
+            If id = items.Item(0).ToString() Then
+                dup = True
+            End If
+        Next
+        Return dup
+    End Function
+
     Private Sub BunifuThinButton22_Click(sender As Object, e As EventArgs) Handles BunifuThinButton22.Click
+        If checkDuplicateStudentD(idTB.Text) Then
+            MsgBox("ID has Duplicate!")
+            Return
+        End If
         If yearTB.Text = "" Or fnameTB.Text = "" Or lNameTB.Text = "" Or yearTB.Text = "" Then
             MsgBox("Please Fill all Required Fields First!")
             Return
@@ -115,7 +82,8 @@ Public Class MainForm
         Next
         MsgBox("Student Added!")
         FTPControl.uploadAllFiles()
-        BackgroundWorker1.RunWorkerAsync()
+        BackgroundWorker2.RunWorkerAsync()
+
     End Sub
 
     Private Sub defaultAddStudent()
@@ -126,7 +94,7 @@ Public Class MainForm
         yearTB.Text = ""
 
 
-        profilePB.Image = My.Resources.icons8_student_male_96
+        profilePB.Image = Nothing
     End Sub
     Private Sub saveImage()
         If profilePB.Image Is Nothing Then
@@ -144,7 +112,10 @@ Public Class MainForm
         SQLConnection.executePhotoCommand(photoQuery, imgArray)
     End Sub
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        FTPControl.downloadAllFiles()
+        'FTPControl.downloadCertain(_room)
+        SetStyle(ControlStyles.SupportsTransparentBackColor, True)
+        Me.BackColor = Color.Transparent
+
         BunifuCustomDataGrid2.RowHeadersVisible = False
         facemodel = New FaceModel(Nothing, Nothing, True)
         BunifuCustomDataGrid1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
@@ -179,7 +150,7 @@ Public Class MainForm
         BunifuCustomDataGrid4.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         BunifuCustomDataGrid5.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 
-        Dim dtNew As DataTable = SQLConnection.executeQuery("select name,code,TIME_FORMAT(time_in, '%H:%i %p') as Time_In ,TIME_FORMAT(time_out, '%H:%i %p') as Time_Out, Room from subject")
+        Dim dtNew As DataTable = SQLConnection.executeQuery("select name,code,TIME_FORMAT(time_in, '%I:%i %p') as Time_In ,TIME_FORMAT(time_out, '%I:%i %p') as Time_Out, Room from subject")
         BunifuCustomDataGrid5.DataSource = dtNew
 
         HideAllPanel()
@@ -213,17 +184,9 @@ Public Class MainForm
         End If
     End Sub
 
-    Private Sub BunifuImageButton1_Click_1(sender As Object, e As EventArgs) Handles BunifuImageButton1.Click
-        mainPanel.Show()
+    Private Sub BunifuImageButton1_Click_1(sender As Object, e As EventArgs)
         BunifuTransition1.HideSync(ListStudentPanel)
     End Sub
-
-    Private Sub ListStudentTile_Click(sender As Object, e As EventArgs) Handles listStudentTile.Click
-        DefaultAll()
-        ListStudentPanel.Show()
-        BunifuTransition1.HideSync(mainPanel)
-    End Sub
-
     Private Sub BunifuThinButton29_Click(sender As Object, e As EventArgs) Handles BunifuThinButton29.Click
         BunifuTransition1.HideSync(editSubjectsPanel, False, Animation.HorizSlide)
     End Sub
@@ -238,7 +201,7 @@ Public Class MainForm
         CaptureImage.Show()
     End Sub
 
-    Private Sub BunifuImageButton4_Click(sender As Object, e As EventArgs) Handles BunifuImageButton4.Click
+    Private Sub BunifuImageButton4_Click(sender As Object, e As EventArgs)
         ListStudentPanel.Show()
         BunifuTransition1.HideSync(editStudentPanel)
     End Sub
@@ -281,10 +244,10 @@ Public Class MainForm
 
         RefreshListImage()
 
-        Dim query As String = "select subject.name as 'Subject' ,student_subjects.subject_id as 'Code', TIME_FORMAT(subject.time_in,'%H:%i %p') as 'Time in', TIME_FORMAT(subject.time_out,'%H:%i %p') as 'Time out' From student_subjects " &
+        Dim query As String = "select subject.name as 'Subject' ,student_subjects.subject_id as 'Code', TIME_FORMAT(subject.time_in,'%I:%i %p') as 'Time in', TIME_FORMAT(subject.time_out,'%I:%i %p') as 'Time out' From student_subjects " &
             "INNER JOIN subject ON subject.code = student_subjects.subject_id WHERE student_subjects.student_id ='" & editIDNumTB.Text & "'"
         listofStudentSubjectDGV.DataSource = SQLConnection.executeQuery(query)
-        Dim q As String = "SELECT s.name,t.code,TIME_FORMAT(s.time_in, '%H:%i %p') as Time_In ,TIME_FORMAT(s.time_out, '%H:%i %p') as Time_Out " &
+        Dim q As String = "SELECT s.name,t.code,TIME_FORMAT(s.time_in, '%I:%i %p') as Time_In ,TIME_FORMAT(s.time_out, '%I:%i %p') as Time_Out " &
         "FROM(SELECT subject_id AS code FROM student_subjects where student_id='" & editIDNumTB.Text & "' " &
         "union all SELECT code FROM subject ) t " &
         "left join subject s on s.code = t.code"
@@ -300,14 +263,14 @@ Public Class MainForm
         Dim query As String = "Insert into student_subjects (student_id , subject_id) values ('" & editIDNumTB.Text & "','" & assignStudentSubjectDGV.SelectedRows.Item(0).Cells.Item(1).Value.ToString & "')"
         SQLConnection.executeCommand(query)
 
-        query = "select subject.name as 'Subject' ,student_subjects.subject_id as 'Code', TIME_FORMAT(subject.time_in,'%H:%i %p') as 'Time in', TIME_FORMAT(subject.time_out,'%H:%i %p') as 'Time out' From student_subjects " &
+        query = "select subject.name as 'Subject' ,student_subjects.subject_id as 'Code', TIME_FORMAT(subject.time_in,'%I:%i %p') as 'Time in', TIME_FORMAT(subject.time_out,'%I:%i %p') as 'Time out' From student_subjects " &
             "INNER JOIN subject ON subject.code = student_subjects.subject_id WHERE student_subjects.student_id ='" & editIDNumTB.Text & "'"
 
         listofStudentSubjectDGV.DataSource = SQLConnection.executeQuery(query)
         MsgBox("Succesfully Added to your Subjects")
 
 
-        Dim q As String = "SELECT s.name,t.code,TIME_FORMAT(s.time_in, '%H:%i %p') as Time_In ,TIME_FORMAT(s.time_out, '%H:%i %p') as Time_Out " &
+        Dim q As String = "SELECT s.name,t.code,TIME_FORMAT(s.time_in, '%I:%i %p') as Time_In ,TIME_FORMAT(s.time_out, '%I:%i %p') as Time_Out " &
         "FROM(SELECT subject_id AS code FROM student_subjects where student_id='" & editIDNumTB.Text & "' " &
         "union all SELECT code FROM subject ) t " &
         "left join subject s on s.code = t.code"
@@ -327,12 +290,12 @@ Public Class MainForm
         Dim query As String = "delete from student_subjects where student_id='" & editIDNumTB.Text & "' and subject_id = '" & selectedSubject & "'"
         SQLConnection.executeCommand(query)
 
-        query = "select subject.name as 'Subject' ,student_subjects.subject_id as 'Code', TIME_FORMAT(subject.time_in,'%H:%i %p') as 'Time in', TIME_FORMAT(subject.time_out,'%H:%i %p') as 'Time out' From student_subjects " &
+        query = "select subject.name as 'Subject' ,student_subjects.subject_id as 'Code', TIME_FORMAT(subject.time_in,'%I:%i %p') as 'Time in', TIME_FORMAT(subject.time_out,'%I:%i %p') as 'Time out' From student_subjects " &
             "INNER JOIN subject ON subject.code = student_subjects.subject_id WHERE student_subjects.student_id ='" & editIDNumTB.Text & "'"
 
         listofStudentSubjectDGV.DataSource = SQLConnection.executeQuery(query)
 
-        Dim q As String = "SELECT s.name,t.code,TIME_FORMAT(s.time_in, '%H:%i %p') as Time_In ,TIME_FORMAT(s.time_out, '%H:%i %p') as Time_Out " &
+        Dim q As String = "SELECT s.name,t.code,TIME_FORMAT(s.time_in, '%I:%i %p') as Time_In ,TIME_FORMAT(s.time_out, '%I:%i %p') as Time_Out " &
         "FROM(SELECT subject_id AS code FROM student_subjects where student_id='" & editIDNumTB.Text & "' " &
         "union all SELECT code FROM subject ) t " &
         "left join subject s on s.code = t.code"
@@ -360,7 +323,7 @@ Public Class MainForm
         ListStudentPanel.Show()
     End Sub
 
-    Private Sub EXITToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EXITToolStripMenuItem.Click
+    Private Sub EXITToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Me.Close()
     End Sub
 
@@ -395,21 +358,52 @@ Public Class MainForm
         clearAddSubject()
     End Sub
 
-    Private Function checkIfOverlap(_code As String, _room As String, _timeIn As DateTime, _timeOut As DateTime)
+    Private Function checkIfOverlap(_code As String, _room As String, _timeIn As DateTime, _timeOut As DateTime, _week As List(Of Boolean))
         Dim overlap As Boolean = False
-        Dim overlapDT As DataTable = SQLConnection.executeQuery("select * time_in,time_out from subject where Room='" & _room & "'")
-        For Each items As DataRow In overlapDT.Rows
-            Dim tIn As DateTime = Convert.ToDateTime(items.Item(0).ToString())
-            Dim tOut As DateTime = Convert.ToDateTime(items.Item(1).ToString())
-            If (_timeIn > tIn And _timeIn < tOut) Or (_timeOut > tIn And _timeOut < tOut) Then
-                overlap = True
+
+        Dim _weekWord As New List(Of String)
+        _weekWord.Add("Mon")
+        _weekWord.Add("Tue")
+        _weekWord.Add("Wed")
+        _weekWord.Add("Thu")
+        _weekWord.Add("Fri")
+        _weekWord.Add("Sat")
+        _weekWord.Add("Sun")
+
+        Dim _index As Integer = -1
+        For Each _day As Boolean In _week
+            _index += 1
+            If Not _day Then
+                Continue For
+            Else
+                Dim overlapDT As DataTable = SQLConnection.executeQuery("select time_in,time_out,name from subject where Room='" & _room & "' and " &
+                                                                        _weekWord(_index) & "=1")
+                For Each items As DataRow In overlapDT.Rows
+                    Dim tIn As DateTime = Convert.ToDateTime(items.Item(0).ToString())
+                    Dim tOut As DateTime = Convert.ToDateTime(items.Item(1).ToString())
+                    If (_timeIn.TimeOfDay >= tIn.TimeOfDay And _timeIn.TimeOfDay <= tOut.TimeOfDay) Or (_timeOut.TimeOfDay >= tIn.TimeOfDay And _timeOut.TimeOfDay <= tOut.TimeOfDay) Then
+                        overlap = True
+                        MsgBox("The Subject you are creating has a conflict at Room " & _room & ",Subject " & items.Item(2).ToString() &
+                               ",where time in is " & items.Item(0).ToString() & " and time out is " & items.Item(1).ToString() &
+                               "on " & _weekWord(_index))
+                    End If
+                Next
             End If
         Next
-        Return True
+        Return overlap
     End Function
     Private Sub BunifuThinButton213_Click(sender As Object, e As EventArgs) Handles BunifuThinButton213.Click
-        If checkIfOverlap(BunifuMaterialTextbox2.Text, BunifuMaterialTextbox16.Text, Convert.ToDateTime(DateTimePicker3.Value.ToString("HH:mm:ss")), Convert.ToDateTime(DateTimePicker4.Value.ToString("HH:mm:ss"))) Then
-            MsgBox("Time Overlap!")
+        Dim _week As New List(Of Boolean)
+        _week.Add(CheckBox6.Checked)
+        _week.Add(CheckBox7.Checked)
+        _week.Add(CheckBox8.Checked)
+        _week.Add(CheckBox9.Checked)
+        _week.Add(CheckBox10.Checked)
+        _week.Add(CheckBox11.Checked)
+        _week.Add(CheckBox12.Checked)
+
+
+        If checkIfOverlap(BunifuMaterialTextbox2.Text, BunifuMaterialTextbox16.Text, Convert.ToDateTime(DateTimePicker3.Value.ToString("HH:mm:ss")), Convert.ToDateTime(DateTimePicker4.Value.ToString("HH:mm:ss")), _week) Then
             Return
         End If
         If editSubjectState Then
@@ -425,7 +419,7 @@ Public Class MainForm
             BunifuThinButton232.Visible = False
             Label22.Text = "Add new Subject"
 
-            Dim dtNews As DataTable = SQLConnection.executeQuery("select name,code,TIME_FORMAT(time_in, '%H:%i %p') as Time_In ,TIME_FORMAT(time_out, '%H:%i %p') as Time_Out,Room  from subject")
+            Dim dtNews As DataTable = SQLConnection.executeQuery("select name,code,TIME_FORMAT(time_in, '%I:%i %p') as Time_In ,TIME_FORMAT(time_out, '%I:%i %p') as Time_Out,Room  from subject")
             BunifuCustomDataGrid5.DataSource = dtNews
 
             MsgBox("Edited Successfully!!")
@@ -476,15 +470,24 @@ Public Class MainForm
             SQLConnection.executeCommand(query)
         Catch ex As Exception
             If ex.ToString().Contains("Duplicate") Then
-                MsgBox("Error")
+                MsgBox("Duplicate!")
             End If
             Return
         End Try
         BunifuMaterialTextbox1.Text = ""
         BunifuMaterialTextbox2.Text = ""
+        BunifuMaterialTextbox16.Text = ""
+
+        CheckBox6.Checked = False
+        CheckBox7.Checked = False
+        CheckBox8.Checked = False
+        CheckBox9.Checked = False
+        CheckBox10.Checked = False
+        CheckBox11.Checked = False
+        CheckBox12.Checked = False
 
         MsgBox("Subject Successfully Saved!")
-        Dim dtNew As DataTable = SQLConnection.executeQuery("Select name,code,TIME_FORMAT(time_in, '%H:%i %p') as Time_In ,TIME_FORMAT(time_out, '%H:%i %p') as Time_Out, Room  from subject")
+        Dim dtNew As DataTable = SQLConnection.executeQuery("Select name,code,TIME_FORMAT(time_in, '%I:%i %p') as Time_In ,TIME_FORMAT(time_out, '%I:%i %p') as Time_Out, Room  from subject")
         BunifuCustomDataGrid5.DataSource = dtNew
     End Sub
 
@@ -531,6 +534,12 @@ Public Class MainForm
             MsgBox("ID has Duplicate!")
             Return
         End If
+
+        If checkDuplicateUserName(BunifuMaterialTextbox5.Text) Then
+            MsgBox("Username has Duplicate!")
+            Return
+        End If
+
         If BunifuMaterialTextbox5.Text = "" Or BunifuMaterialTextbox6.Text = "" Or BunifuMaterialTextbox7.Text = "" Then
             MsgBox("Please fill credentials first!")
         End If
@@ -724,13 +733,26 @@ Public Class MainForm
                 ComboBox1.Items.Add(dt.Rows.Item(i).Item(1).ToString)
             Next
         Else
-            Dim query As String = "Select * from staff where Type='Faculty' and username='" & loginName & "'"
+            Dim query As String = "Select * from staff where username='" & loginName & "'"
             Dim dt As DataTable = SQLConnection.executeQuery(query)
             FacultyList = dt.Rows
             For i As Integer = 0 To dt.Rows.Count - 1
                 ComboBox1.Items.Add(dt.Rows.Item(i).Item(1).ToString)
             Next
             ComboBox1.SelectedIndex = 0
+
+
+            ComboBox2.Items.Clear()
+            ComboBox2.Text = ""
+            query = "Select * from subject where faculty='" & loginName & "'"
+            _dtForSubject = SQLConnection.executeQuery(query)
+            SubjectList = _dtForSubject.Rows
+            cbBoxContents = New List(Of personDetail)
+
+            For i As Integer = 0 To _dtForSubject.Rows.Count - 1
+                cbBoxContents.Add(New personDetail(_dtForSubject.Rows.Item(i).Item(0).ToString, _dtForSubject.Rows.Item(i).Item(1).ToString))
+                ComboBox2.Items.Add(_dtForSubject.Rows.Item(i).Item(0).ToString)
+            Next
         End If
         HideAllPanel()
         FreePanel.Show()
@@ -738,14 +760,15 @@ Public Class MainForm
 
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
         ComboBox2.Items.Clear()
+        ComboBox2.Text = ""
         Dim query As String = "Select * from subject where faculty='" & FacultyList.Item(ComboBox1.SelectedIndex).Item(3).ToString & "'"
-        Dim dt As DataTable = SQLConnection.executeQuery(query)
-        SubjectList = dt.Rows
+        _dtForSubject = SQLConnection.executeQuery(query)
+        SubjectList = _dtForSubject.Rows
         cbBoxContents = New List(Of personDetail)
 
-        For i As Integer = 0 To dt.Rows.Count - 1
-            cbBoxContents.Add(New personDetail(dt.Rows.Item(i).Item(0).ToString, dt.Rows.Item(i).Item(1).ToString))
-            ComboBox2.Items.Add(dt.Rows.Item(i).Item(0).ToString)
+        For i As Integer = 0 To _dtForSubject.Rows.Count - 1
+            cbBoxContents.Add(New personDetail(_dtForSubject.Rows.Item(i).Item(0).ToString, _dtForSubject.Rows.Item(i).Item(1).ToString))
+            ComboBox2.Items.Add(_dtForSubject.Rows.Item(i).Item(0).ToString)
         Next
 
     End Sub
@@ -764,7 +787,7 @@ Public Class MainForm
 
         BunifuCustomDataGrid7.Columns.Add("ID", "ID Number")
         BunifuCustomDataGrid7.Columns.Add("Name", "Name")
-        Dim reportsDT As DataTable = SQLConnection.executeQuery("Select dateSet from attendanceschedule where subjectCode = '" & ComboBox2.Text & "'")
+        Dim reportsDT As DataTable = SQLConnection.executeQuery("Select dateSet from attendanceschedule where subjectCode = '" & _dtForSubject.Rows.Item(ComboBox2.SelectedIndex).Item(1).ToString() & "'")
 
         Dim lastDate As String = ""
         For Each items As DataRow In reportsDT.Rows
@@ -777,7 +800,7 @@ Public Class MainForm
 
         Dim idList As New List(Of personDetail)
         reportsDT = SQLConnection.executeQuery("select sub.student_id , stud.name from student_subjects sub join student stud on sub.student_id = stud.ID " &
-             "where sub.subject_id = '" & ComboBox2.Text & "'")
+             "where sub.subject_id = '" & _dtForSubject.Rows.Item(ComboBox2.SelectedIndex).Item(1).ToString() & "'")
         For Each items As DataRow In reportsDT.Rows
             Dim studentDetail As New personDetail(items.Item(1).ToString(), items.Item(0).ToString())
             idList.Add(studentDetail)
@@ -790,7 +813,7 @@ Public Class MainForm
             Dim rowID As Integer = BunifuCustomDataGrid7.Rows.Add()
             BunifuCustomDataGrid7.Rows.Item(rowID).Cells.Item(0).Value = item.id
             BunifuCustomDataGrid7.Rows.Item(rowID).Cells.Item(1).Value = item.name
-            reportsDT = SQLConnection.executeQuery("Select * from attendance where Student_Code = '" & item.id & "' and Student_Subject='" & ComboBox2.Text & "'")
+            reportsDT = SQLConnection.executeQuery("Select * from attendance where Student_Code = '" & item.id & "' and Student_Subject='" & _dtForSubject.Rows.Item(ComboBox2.SelectedIndex).Item(1).ToString() & "'")
             For Each items As DataRow In reportsDT.Rows
                 Dim d As String = Convert.ToDateTime(items.Item(2).ToString()).ToString("MMMM dd")
                 If TimeOutCurrent.AddMinutes(15).TimeOfDay < Convert.ToDateTime(reportsDT.Rows.Item(0).Item(2).ToString).TimeOfDay Then
@@ -889,11 +912,18 @@ Public Class MainForm
         Return dup
     End Function
 
+    Private Function checkDuplicateUserName(_username As String)
+        Dim dup As Boolean = False
+        Dim idDT As DataTable = SQLConnection.executeQuery("Select username from staff")
+        For Each items As DataRow In idDT.Rows
+            If _username = items.Item(0).ToString() Then
+                dup = True
+            End If
+        Next
+        Return dup
+    End Function
+
     Private Sub BunifuThinButton227_Click(sender As Object, e As EventArgs) Handles BunifuThinButton227.Click
-        If checkDuplicateID(BunifuMaterialTextbox11.Text) Then
-            MsgBox("ID has Duplicate!")
-            Return
-        End If
         Dim query As String = "Update staff set Name='" & BunifuMaterialTextbox14.Text & "' , username='" & BunifuMaterialTextbox13.Text &
             "', password='" & BunifuMaterialTextbox12.Text & "', ID='" & BunifuMaterialTextbox11.Text & "' where ID='" & BunifuMaterialTextbox11.Text & "'"
         SQLConnection.executeCommand(query)
@@ -970,7 +1000,6 @@ Public Class MainForm
         Dim q As String = "Select * from subject where code='" & BunifuCustomDataGrid5.SelectedRows.Item(0).Cells.Item(1).Value.ToString() & "'"
         Dim editSubjectDT As DataTable = SQLConnection.executeQuery(q)
         editSubjectState = True
-        BunifuMaterialTextbox1.Enabled = False
         BunifuMaterialTextbox1.Text = editSubjectDT.Rows.Item(0).Item(0).ToString()
         BunifuMaterialTextbox2.Text = editSubjectDT.Rows.Item(0).Item(1).ToString()
         CheckBox6.Checked = editSubjectDT.Rows.Item(0).Item(5)
@@ -987,7 +1016,7 @@ Public Class MainForm
         MsgBox("You are now in Edit Mode!")
     End Sub
     Private Sub BunifuMaterialTextbox3_OnValueChanged(sender As Object, e As EventArgs) Handles BunifuMaterialTextbox3.OnValueChanged
-        Dim q As String = "SELECT s.name,t.code,TIME_FORMAT(s.time_in, '%H:%i %p') as Time_In ,TIME_FORMAT(s.time_out, '%H:%i %p') as Time_Out " &
+        Dim q As String = "SELECT s.name,t.code,TIME_FORMAT(s.time_in, '%I:%i %p') as Time_In ,TIME_FORMAT(s.time_out, '%I:%i %p') as Time_Out " &
         "FROM(SELECT subject_id AS code FROM student_subjects where student_id='" & editIDNumTB.Text & "' " &
         "union all SELECT code FROM subject ) t " &
         "left join subject s on s.code = t.code"
@@ -1010,7 +1039,7 @@ Public Class MainForm
         picStream.Close()
         Dim photoQuery As String = "Update student Set Img=@photo where ID = '" & editIDNumTB.Text & "'"
         SQLConnection.executePhotoCommand(photoQuery, imgArray)
-        MsgBox("Faculty Edited Successfully!")
+        MsgBox("Student Edited Successfully!")
     End Sub
     Private Sub BunifuThinButton231_Click(sender As Object, e As EventArgs) Handles BunifuThinButton231.Click
         Dim i As Integer
@@ -1044,6 +1073,7 @@ Public Class MainForm
 
     Private Sub BunifuThinButton224_Click(sender As Object, e As EventArgs) Handles BunifuThinButton224.Click
         saveToExcel()
+        'wew watdahek men
     End Sub
     Private Sub saveToExcel()
         Dim xlApp As New Microsoft.Office.Interop.Excel.Application()
@@ -1154,13 +1184,14 @@ Public Class MainForm
     Private Sub BunifuThinButton233_Click(sender As Object, e As EventArgs) Handles BunifuThinButton233.Click
         switchExport = Not switchExport
         If switchExport Then
+            BunifuThinButton233.ButtonText = "SHOW ATTENDANCE"
             BunifuCustomDataGrid7.Columns.Clear()
             BunifuCustomDataGrid7.Rows.Clear()
 
             BunifuCustomDataGrid7.Columns.Add("ID", "ID Number")
             BunifuCustomDataGrid7.Columns.Add("Name", "Name")
 
-            Dim reportsDT As DataTable = SQLConnection.executeQuery("Select dateSet from attendanceschedule where subjectCode = '" & ComboBox2.Text & "'")
+            Dim reportsDT As DataTable = SQLConnection.executeQuery("Select dateSet from attendanceschedule where subjectCode = '" & _dtForSubject.Rows.Item(ComboBox2.SelectedIndex).Item(1).ToString() & "'")
 
             Dim lastDate As String = ""
             For Each items As DataRow In reportsDT.Rows
@@ -1173,7 +1204,7 @@ Public Class MainForm
 
             Dim idList As New List(Of personDetail)
             reportsDT = SQLConnection.executeQuery("select sub.student_id , stud.name from student_subjects sub join student stud on sub.student_id = stud.ID " &
-                 "where sub.subject_id = '" & ComboBox2.Text & "'")
+                 "where sub.subject_id = '" & _dtForSubject.Rows.Item(ComboBox2.SelectedIndex).Item(1).ToString() & "'")
             For Each items As DataRow In reportsDT.Rows
                 Dim studentDetail As New personDetail(items.Item(1).ToString(), items.Item(0).ToString())
                 idList.Add(studentDetail)
@@ -1186,10 +1217,10 @@ Public Class MainForm
                 Dim rowID As Integer = BunifuCustomDataGrid7.Rows.Add()
                 BunifuCustomDataGrid7.Rows.Item(rowID).Cells.Item(0).Value = item.id
                 BunifuCustomDataGrid7.Rows.Item(rowID).Cells.Item(1).Value = item.name
-                reportsDT = SQLConnection.executeQuery("Select * from attendance where Student_Code = '" & item.id & "' and Student_Subject='" & ComboBox2.Text & "'")
+                reportsDT = SQLConnection.executeQuery("Select * from attendance where Student_Code = '" & item.id & "' and Student_Subject='" & _dtForSubject.Rows.Item(ComboBox2.SelectedIndex).Item(1).ToString() & "'")
                 For Each items As DataRow In reportsDT.Rows
                     Dim d As String = Convert.ToDateTime(items.Item(2).ToString()).ToString("MMMM dd")
-                    BunifuCustomDataGrid7.Rows.Item(rowID).Cells.Item(d).Value = Convert.ToDateTime(items.Item(2).ToString()).ToString("HH:mm tt")
+                    BunifuCustomDataGrid7.Rows.Item(rowID).Cells.Item(d).Value = Convert.ToDateTime(items.Item(2).ToString()).ToString("hh:mm tt")
                 Next
                 For Each items As DataGridViewCell In BunifuCustomDataGrid7.Rows.Item(rowID).Cells
                     If items.Value = Nothing Or items.Value = "" Then
@@ -1198,13 +1229,14 @@ Public Class MainForm
                 Next
             Next
         Else
+            BunifuThinButton233.ButtonText = "SHOW TIME"
             BunifuCustomDataGrid7.Columns.Clear()
             BunifuCustomDataGrid7.Rows.Clear()
 
             BunifuCustomDataGrid7.Columns.Add("ID", "ID Number")
             BunifuCustomDataGrid7.Columns.Add("Name", "Name")
 
-            Dim reportsDT As DataTable = SQLConnection.executeQuery("Select dateSet from attendanceschedule where subjectCode = '" & ComboBox2.Text & "'")
+            Dim reportsDT As DataTable = SQLConnection.executeQuery("Select dateSet from attendanceschedule where subjectCode = '" & _dtForSubject.Rows.Item(ComboBox2.SelectedIndex).Item(1).ToString() & "'")
 
             Dim lastDate As String = ""
             For Each items As DataRow In reportsDT.Rows
@@ -1217,20 +1249,20 @@ Public Class MainForm
 
             Dim idList As New List(Of personDetail)
             reportsDT = SQLConnection.executeQuery("select sub.student_id , stud.name from student_subjects sub join student stud on sub.student_id = stud.ID " &
-             "where sub.subject_id = '" & ComboBox2.Text & "'")
+             "where sub.subject_id = '" & _dtForSubject.Rows.Item(ComboBox2.SelectedIndex).Item(1).ToString() & "'")
             For Each items As DataRow In reportsDT.Rows
                 Dim studentDetail As New personDetail(items.Item(1).ToString(), items.Item(0).ToString())
                 idList.Add(studentDetail)
             Next
 
-            reportsDT = SQLConnection.executeQuery("Select time_in from subject where code = '" & ComboBox2.Text & "'")
+            reportsDT = SQLConnection.executeQuery("Select time_in from subject where code = '" & _dtForSubject.Rows.Item(ComboBox2.SelectedIndex).Item(1).ToString() & "'")
             Dim TimeOutCurrent As DateTime = Convert.ToDateTime(reportsDT.Rows.Item(0).Item(0).ToString())
 
             For Each item As personDetail In idList
                 Dim rowID As Integer = BunifuCustomDataGrid7.Rows.Add()
                 BunifuCustomDataGrid7.Rows.Item(rowID).Cells.Item(0).Value = item.id
                 BunifuCustomDataGrid7.Rows.Item(rowID).Cells.Item(1).Value = item.name
-                reportsDT = SQLConnection.executeQuery("Select * from attendance where Student_Code = '" & item.id & "' and Student_Subject='" & ComboBox2.Text & "'")
+                reportsDT = SQLConnection.executeQuery("Select * from attendance where Student_Code = '" & item.id & "' and Student_Subject='" & _dtForSubject.Rows.Item(ComboBox2.SelectedIndex).Item(1).ToString() & "'")
                 For Each items As DataRow In reportsDT.Rows
                     Dim d As String = Convert.ToDateTime(items.Item(2).ToString()).ToString("MMMM dd")
                     If TimeOutCurrent.AddMinutes(15).TimeOfDay < Convert.ToDateTime(reportsDT.Rows.Item(0).Item(2).ToString).TimeOfDay Then
@@ -1266,7 +1298,7 @@ Public Class MainForm
     End Sub
 
     Private Sub BunifuMaterialTextbox18_OnValueChanged(sender As Object, e As EventArgs) Handles BunifuMaterialTextbox18.OnValueChanged
-        Dim dtNew As DataTable = SQLConnection.executeQuery("Select name,code,TIME_FORMAT(time_in, '%H:%i %p') as Time_In ,TIME_FORMAT(time_out, '%H:%i %p') as Time_Out, Room  from subject where name like '%" & BunifuMaterialTextbox18.Text & "%'")
+        Dim dtNew As DataTable = SQLConnection.executeQuery("Select name,code,TIME_FORMAT(time_in, '%I:%i %p') as Time_In ,TIME_FORMAT(time_out, '%I:%i %p') as Time_Out, Room  from subject where name like '%" & BunifuMaterialTextbox18.Text & "%'")
         BunifuCustomDataGrid5.DataSource = dtNew
     End Sub
 
@@ -1287,6 +1319,29 @@ Public Class MainForm
             BackgroundWorker1.RunWorkerAsync()
         End If
         BackgroundWorker1.WorkerSupportsCancellation = True
+        BackgroundWorker2.WorkerSupportsCancellation = True
+    End Sub
+
+    Private Sub BackgroundWorker2_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker2.DoWork
+        While BackgroundWorker1.IsBusy
+
+        End While
+        BackgroundWorker1.RunWorkerAsync()
+    End Sub
+
+    Private Sub MainForm_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        If WindowState = FormWindowState.Maximized Then
+            BunifuCustomDataGrid3.Size = New System.Drawing.Point(830, (AssignSubjectFacultyPanel.Size.Height / 2) - 100)
+            Label57.Location = New System.Drawing.Point(541, (AssignSubjectFacultyPanel.Size.Height / 2) + 22)
+            BunifuThinButton222.Location = New System.Drawing.Point(1203, (AssignSubjectFacultyPanel.Size.Height / 2) + 12)
+            BunifuCustomDataGrid4.Size = New System.Drawing.Point(830, (AssignSubjectFacultyPanel.Size.Height / 2) - 100)
+            BunifuCustomDataGrid4.Location = New System.Drawing.Point(541, (AssignSubjectFacultyPanel.Size.Height / 2) + 53)
+        Else
+            BunifuCustomDataGrid3.Size = New System.Drawing.Point(830, 189)
+            Label57.Location = New System.Drawing.Point(11, 306)
+            BunifuThinButton222.Location = New System.Drawing.Point(674, 292)
+            BunifuCustomDataGrid4.Location = New System.Drawing.Point(12, 335)
+        End If
     End Sub
 End Class
 

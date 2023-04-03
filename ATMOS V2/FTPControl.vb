@@ -1,12 +1,42 @@
-﻿Imports System.Net
+﻿Imports System.IO
+Imports System.Net
 Public Class FTPControl
-    Private Shared serverUri As String = "ftp://192.168.100.2"
+    Private Shared serverUri As String = ""
+    Private Shared serverUriPath As String = Application.StartupPath & "\ftp.txt"
     Private Shared username As String = "user"
     Private Shared password As String = "user"
     Private Shared remoteFolderPath As String = ""
     Private Shared localFolderPath As String = Application.StartupPath & "/TrainingImages/"
 
-    Public Shared Sub downloadAllFiles()
+    Public Shared Sub downloadCertain(_room As String)
+        Dim _query As String = "select code from subject where Room='" & _room & "'"
+        Dim _datatable As DataTable = SQLConnection.executeQuery(_query)
+        Dim studentList As New List(Of String)
+        For Each items As DataRow In _datatable.Rows
+            _query = "Select student_id from Student_Subjects where subject_id ='" & items.Item(0).ToString() & "'"
+            Dim _studentTable As DataTable = SQLConnection.executeQuery(_query)
+            For Each students As DataRow In _studentTable.Rows
+                If Not studentList.Contains(students.Item(0).ToString()) Then
+                    studentList.Add(students.Item(0).ToString())
+                End If
+            Next
+        Next
+        downloadAllFiles(studentList, _room)
+    End Sub
+    Public Shared Sub initServerURI()
+        If Not File.Exists(serverUriPath) Then
+            Using sw As StreamWriter = File.CreateText(serverUriPath)
+                sw.WriteLine("ftp://192.168.100.2")
+            End Using
+        End If
+        Dim _credentials As String = My.Computer.FileSystem.ReadAllText(Application.StartupPath & "\ftp.txt")
+        Dim _creds As String() = _credentials.Split(New String() {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+
+        serverUri = _creds(0)
+        username = _creds(1)
+        password = _creds(2)
+    End Sub
+    Public Shared Sub downloadAllFiles(_students As List(Of String), _room As String)
         Dim request As FtpWebRequest = WebRequest.Create(serverUri + remoteFolderPath)
         request.Method = WebRequestMethods.Ftp.ListDirectory
         request.Credentials = New NetworkCredential(username, password)
@@ -15,11 +45,20 @@ Public Class FTPControl
             Using streamReader As New IO.StreamReader(response.GetResponseStream())
                 Dim files() As String = streamReader.ReadToEnd().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
                 For Each file In files
-                    If System.IO.File.Exists(localFolderPath & "\" & file) Then
+                    Dim studentExist As Boolean = False
+                    If _room = "" Then
+                        For Each student As String In _students
+                            If file.Contains(student) Then
+                                studentExist = True
+                            End If
+                        Next
+                    Else
+                        studentExist = True
+                    End If
+                    If System.IO.File.Exists(localFolderPath & "\" & file) And Not studentExist Then
                         Continue For
                     End If
                     If Not file.StartsWith(".") And file.Contains(".") Then
-
                         Dim remoteFilePath As String = remoteFolderPath + "/" + file
                         Dim localFilePath As String = localFolderPath + file
                         Dim downloadRequest As FtpWebRequest = WebRequest.Create(serverUri + remoteFilePath)

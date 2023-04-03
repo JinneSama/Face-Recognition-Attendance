@@ -182,15 +182,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
-    <Compile Include="My Project\Resources.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SetRoom.Designer.vb">
+      <DependentUpon>SetRoom.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SetRoom.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="SQLConnection.vb" />
     <Compile Include="Treshold.Designer.vb">
@@ -218,9 +219,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetRoom.resx">
+      <DependentUpon>SetRoom.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Treshold.resx">
       <DependentUpon>Treshold.vb</DependentUpon>
@@ -304,10 +307,14 @@
     <None Include="Resources\Capture.PNG" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\338147876_159083860412701_8787916010032384563_n1.png" />
+    <None Include="Resources\338147876_159083860412701_8787916010032384563_n.png" />
     <None Include="Resources\text %281%29.gif" />
     <None Include="Resources\loading-waiting.gif" />
     <None Include="Resources\loading-loading-forever.gif" />
-    <None Include="bin\Debug\haarcascade_frontalface_alt.xml" />
+    <Content Include="bin\Debug\haarcascade_frontalface_alt.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="haarcascade_frontalface_alt.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

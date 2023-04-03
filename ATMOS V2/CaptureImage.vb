@@ -46,8 +46,8 @@ Public Class CaptureImage
 
         images.ImageSize = New Point(64, 64)
 
-        imageCount = NumericUpDown1.Value
-        imageMillisDelay = 1000 / NumericUpDown2.Value
+        imageCount = 50
+        imageMillisDelay = 1000 / 10
 
         timer.Interval = imageMillisDelay
 
@@ -68,6 +68,7 @@ Public Class CaptureImage
         Me.Invoke(Sub() AddImage(imageCounter))
         If imageCounter >= imageCount Then
             timer.Stop()
+            MsgBox("Capture Done!")
             'faceModel.stopDetection()
         Else
             imageCounter += 1

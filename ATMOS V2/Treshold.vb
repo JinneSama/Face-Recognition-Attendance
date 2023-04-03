@@ -4,8 +4,16 @@
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        My.Computer.FileSystem.WriteAllText(Application.StartupPath & "\treshold.txt", TextBox1.Text, False)
-        FaceRecognizer.fModel.distTreshold = Convert.ToInt64(TextBox1.Text)
-        MsgBox("Treshold Changed!")
+        Dim q As String = "select * from staff where Type='Admin' and Name='" & MainForm.adminName & "' and password ='" & TextBox2.Text & "'"
+        Dim dt As DataTable = SQLConnection.executeQuery(q)
+
+        If dt.Rows.Count > 0 Then
+            My.Computer.FileSystem.WriteAllText(Application.StartupPath & "\treshold.txt", TextBox1.Text, False)
+            FaceRecognizer.fModel.distTreshold = Convert.ToInt64(TextBox1.Text)
+            TextBox2.Text = ""
+            MsgBox("Treshold Changed!")
+        Else
+            MsgBox("Invalid Password!")
+        End If
     End Sub
 End Class

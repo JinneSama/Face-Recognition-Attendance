@@ -24,15 +24,9 @@ Partial Class FaceRecog
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FaceRecog))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim Animation1 As BunifuAnimatorNS.Animation = New BunifuAnimatorNS.Animation()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.BunifuThinButton23 = New ns1.BunifuThinButton2()
-        Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.BunifuThinButton219 = New ns1.BunifuThinButton2()
-        Me.BunifuThinButton220 = New ns1.BunifuThinButton2()
-        Me.BunifuCustomDataGrid4 = New ns1.BunifuCustomDataGrid()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ListBox1 = New System.Windows.Forms.ListBox()
         Me.IDLB = New System.Windows.Forms.Label()
@@ -51,8 +45,6 @@ Partial Class FaceRecog
         Me.BunifuTransition1 = New BunifuAnimatorNS.BunifuTransition(Me.components)
         Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
         Me.Panel1.SuspendLayout()
-        Me.Panel3.SuspendLayout()
-        CType(Me.BunifuCustomDataGrid4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BunifuImageButton1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -64,7 +56,6 @@ Partial Class FaceRecog
         '
         Me.Panel1.BackColor = System.Drawing.Color.Gray
         Me.Panel1.Controls.Add(Me.BunifuThinButton23)
-        Me.Panel1.Controls.Add(Me.Panel3)
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Controls.Add(Me.ListBox1)
         Me.Panel1.Controls.Add(Me.IDLB)
@@ -109,104 +100,6 @@ Partial Class FaceRecog
         Me.BunifuThinButton23.Size = New System.Drawing.Size(138, 43)
         Me.BunifuThinButton23.TabIndex = 69
         Me.BunifuThinButton23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Panel3
-        '
-        Me.Panel3.BackColor = System.Drawing.Color.Gray
-        Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel3.Controls.Add(Me.BunifuThinButton219)
-        Me.Panel3.Controls.Add(Me.BunifuThinButton220)
-        Me.Panel3.Controls.Add(Me.BunifuCustomDataGrid4)
-        Me.BunifuTransition1.SetDecoration(Me.Panel3, BunifuAnimatorNS.DecorationType.None)
-        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel3.Location = New System.Drawing.Point(0, 0)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(442, 485)
-        Me.Panel3.TabIndex = 61
-        Me.Panel3.Visible = False
-        '
-        'BunifuThinButton219
-        '
-        Me.BunifuThinButton219.ActiveBorderThickness = 1
-        Me.BunifuThinButton219.ActiveCornerRadius = 20
-        Me.BunifuThinButton219.ActiveFillColor = System.Drawing.Color.Black
-        Me.BunifuThinButton219.ActiveForecolor = System.Drawing.Color.Transparent
-        Me.BunifuThinButton219.ActiveLineColor = System.Drawing.Color.Black
-        Me.BunifuThinButton219.BackColor = System.Drawing.Color.Gray
-        Me.BunifuThinButton219.BackgroundImage = CType(resources.GetObject("BunifuThinButton219.BackgroundImage"), System.Drawing.Image)
-        Me.BunifuThinButton219.ButtonText = "Close"
-        Me.BunifuThinButton219.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BunifuTransition1.SetDecoration(Me.BunifuThinButton219, BunifuAnimatorNS.DecorationType.None)
-        Me.BunifuThinButton219.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BunifuThinButton219.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BunifuThinButton219.IdleBorderThickness = 1
-        Me.BunifuThinButton219.IdleCornerRadius = 20
-        Me.BunifuThinButton219.IdleFillColor = System.Drawing.Color.Transparent
-        Me.BunifuThinButton219.IdleForecolor = System.Drawing.Color.Black
-        Me.BunifuThinButton219.IdleLineColor = System.Drawing.Color.Black
-        Me.BunifuThinButton219.Location = New System.Drawing.Point(195, 434)
-        Me.BunifuThinButton219.Margin = New System.Windows.Forms.Padding(4)
-        Me.BunifuThinButton219.Name = "BunifuThinButton219"
-        Me.BunifuThinButton219.Size = New System.Drawing.Size(100, 38)
-        Me.BunifuThinButton219.TabIndex = 59
-        Me.BunifuThinButton219.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'BunifuThinButton220
-        '
-        Me.BunifuThinButton220.ActiveBorderThickness = 1
-        Me.BunifuThinButton220.ActiveCornerRadius = 20
-        Me.BunifuThinButton220.ActiveFillColor = System.Drawing.Color.Black
-        Me.BunifuThinButton220.ActiveForecolor = System.Drawing.Color.Transparent
-        Me.BunifuThinButton220.ActiveLineColor = System.Drawing.Color.Black
-        Me.BunifuThinButton220.BackColor = System.Drawing.Color.Gray
-        Me.BunifuThinButton220.BackgroundImage = CType(resources.GetObject("BunifuThinButton220.BackgroundImage"), System.Drawing.Image)
-        Me.BunifuThinButton220.ButtonText = "Select"
-        Me.BunifuThinButton220.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BunifuTransition1.SetDecoration(Me.BunifuThinButton220, BunifuAnimatorNS.DecorationType.None)
-        Me.BunifuThinButton220.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BunifuThinButton220.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BunifuThinButton220.IdleBorderThickness = 1
-        Me.BunifuThinButton220.IdleCornerRadius = 20
-        Me.BunifuThinButton220.IdleFillColor = System.Drawing.Color.Transparent
-        Me.BunifuThinButton220.IdleForecolor = System.Drawing.Color.Black
-        Me.BunifuThinButton220.IdleLineColor = System.Drawing.Color.Black
-        Me.BunifuThinButton220.Location = New System.Drawing.Point(302, 434)
-        Me.BunifuThinButton220.Margin = New System.Windows.Forms.Padding(4)
-        Me.BunifuThinButton220.Name = "BunifuThinButton220"
-        Me.BunifuThinButton220.Size = New System.Drawing.Size(100, 38)
-        Me.BunifuThinButton220.TabIndex = 58
-        Me.BunifuThinButton220.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'BunifuCustomDataGrid4
-        '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.BunifuCustomDataGrid4.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.BunifuCustomDataGrid4.BackgroundColor = System.Drawing.Color.Gainsboro
-        Me.BunifuCustomDataGrid4.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.BunifuCustomDataGrid4.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.Gray
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Times New Roman", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.BunifuCustomDataGrid4.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Me.BunifuCustomDataGrid4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.BunifuTransition1.SetDecoration(Me.BunifuCustomDataGrid4, BunifuAnimatorNS.DecorationType.None)
-        Me.BunifuCustomDataGrid4.DoubleBuffered = True
-        Me.BunifuCustomDataGrid4.EnableHeadersVisualStyles = False
-        Me.BunifuCustomDataGrid4.HeaderBgColor = System.Drawing.Color.Gray
-        Me.BunifuCustomDataGrid4.HeaderForeColor = System.Drawing.Color.White
-        Me.BunifuCustomDataGrid4.Location = New System.Drawing.Point(37, 31)
-        Me.BunifuCustomDataGrid4.Name = "BunifuCustomDataGrid4"
-        Me.BunifuCustomDataGrid4.ReadOnly = True
-        Me.BunifuCustomDataGrid4.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        Me.BunifuCustomDataGrid4.RowHeadersWidth = 51
-        Me.BunifuCustomDataGrid4.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.BunifuCustomDataGrid4.Size = New System.Drawing.Size(365, 378)
-        Me.BunifuCustomDataGrid4.TabIndex = 24
-        Me.BunifuCustomDataGrid4.VirtualMode = True
         '
         'Label3
         '
@@ -341,20 +234,7 @@ Partial Class FaceRecog
         Me.BunifuThinButton21.TabIndex = 19
         Me.BunifuThinButton21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'BunifuImageButton1
-        '
-        Me.BunifuImageButton1.BackColor = System.Drawing.Color.Transparent
-        Me.BunifuTransition1.SetDecoration(Me.BunifuImageButton1, BunifuAnimatorNS.DecorationType.None)
-        Me.BunifuImageButton1.Image = Global.ATMOS_V2.My.Resources.Resources.icons8_left_96
-        Me.BunifuImageButton1.ImageActive = Nothing
-        Me.BunifuImageButton1.Location = New System.Drawing.Point(27, 44)
-        Me.BunifuImageButton1.Name = "BunifuImageButton1"
-        Me.BunifuImageButton1.Size = New System.Drawing.Size(39, 36)
-        Me.BunifuImageButton1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.BunifuImageButton1.TabIndex = 12
-        Me.BunifuImageButton1.TabStop = False
-        Me.BunifuImageButton1.Visible = False
-        Me.BunifuImageButton1.Zoom = 10
+
         '
         'PictureBox1
         '
@@ -378,17 +258,6 @@ Partial Class FaceRecog
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(774, 485)
         Me.Panel2.TabIndex = 1
-        '
-        'PictureBox2
-        '
-        Me.BunifuTransition1.SetDecoration(Me.PictureBox2, BunifuAnimatorNS.DecorationType.None)
-        Me.PictureBox2.Image = Global.ATMOS_V2.My.Resources.Resources.loading_loading_forever
-        Me.PictureBox2.Location = New System.Drawing.Point(329, 173)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(100, 100)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox2.TabIndex = 2
-        Me.PictureBox2.TabStop = False
         '
         'Label6
         '
@@ -439,13 +308,12 @@ Partial Class FaceRecog
         Me.Controls.Add(Me.Panel2)
         Me.BunifuTransition1.SetDecoration(Me, BunifuAnimatorNS.DecorationType.None)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
+        Me.MinimizeBox = False
         Me.Name = "FaceRecog"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FaceRecog"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        Me.Panel3.ResumeLayout(False)
-        CType(Me.BunifuCustomDataGrid4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BunifuImageButton1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -465,10 +333,6 @@ Partial Class FaceRecog
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents BunifuTransition1 As BunifuAnimatorNS.BunifuTransition
-    Friend WithEvents Panel3 As Panel
-    Friend WithEvents BunifuThinButton219 As ns1.BunifuThinButton2
-    Friend WithEvents BunifuThinButton220 As ns1.BunifuThinButton2
-    Friend WithEvents BunifuCustomDataGrid4 As ns1.BunifuCustomDataGrid
     Friend WithEvents IDLB As Label
     Friend WithEvents NameLB As Label
     Friend WithEvents Label2 As Label

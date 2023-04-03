@@ -18,7 +18,6 @@ Public Class FaceRecog
     End Sub
 
     Private Sub FaceRecog_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        BunifuCustomDataGrid4.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         FaceRecognizer.fModel._pb = PictureBox1
         FaceRecognizer.fModel.useTrained = True
         'BackgroundWorker1.RunWorkerAsync()
@@ -39,7 +38,7 @@ Public Class FaceRecog
             Return
         End If
         Dim query As String = "Insert into attendance (Student_Code , Student_Subject , Time_Taken) values ('" & FaceRecognizer.fModel.recordedStudents.Last.ToString() &
-                "','" & subjectCode & "','" & DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") & "')"
+                "','" & subjectCode & "','" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "')"
         SQLConnection.executeQuery(query)
         query = "Select * from student where ID='" & FaceRecognizer.fModel.recordedStudents.Last.ToString() & "'"
         Dim dtFill = SQLConnection.executeQuery(query)
@@ -81,28 +80,8 @@ Public Class FaceRecog
     End Sub
 
     Private Sub BunifuThinButton21_Click(sender As Object, e As EventArgs) Handles BunifuThinButton21.Click
+        startAttendance()
         BunifuThinButton21.Enabled = False
-        Dim query As String = "select Distinct Room from subject"
-        Select Case DateTime.Now.DayOfWeek.ToString()
-            Case "Monday"
-                query &= " where Mon='1'"
-            Case "Tuesday"
-                query &= " where Tue='1'"
-            Case "Wednesday"
-                query &= " where Wed='1'"
-            Case "Thursday"
-                query &= " where Thu='1'"
-            Case "Friday"
-                query &= " where Fri='1'"
-            Case "Saturday"
-                query &= " where Sat='1'"
-            Case "Sunday"
-                query &= " where Sun='1'"
-
-        End Select
-        Dim dt As DataTable = SQLConnection.executeQuery(query)
-        BunifuCustomDataGrid4.DataSource = dt
-        BunifuTransition1.ShowSync(Panel3, False, Animation.HorizSlide)
     End Sub
 
     Private Sub BunifuThinButton22_Click(sender As Object, e As EventArgs) Handles BunifuThinButton22.Click
@@ -111,16 +90,12 @@ Public Class FaceRecog
         BunifuThinButton21.Enabled = True
     End Sub
 
-    Private Sub BunifuThinButton219_Click(sender As Object, e As EventArgs) Handles BunifuThinButton219.Click
-        BunifuTransition1.HideSync(Panel3, False, Animation.HorizSlide)
-    End Sub
-
-    Private Sub BunifuThinButton220_Click(sender As Object, e As EventArgs) Handles BunifuThinButton220.Click
+    Private Sub startAttendance()
         If Not FaceRecognizer.fModel.isTrained Then
             MsgBox("Please Wait for the Model to be Trained" & vbCrLf & "or No Training Images Detected!")
             Return
         End If
-        Dim nquery As String = "select name,code,time_in,time_out from subject where Room='" & BunifuCustomDataGrid4.SelectedRows.Item(0).Cells.Item(0).Value.ToString() & "'"
+        Dim nquery As String = "select name,code,time_in,time_out from subject where Room='" & MainForm._room & "'"
         Dim newDT2 As DataTable = SQLConnection.executeQuery(nquery)
         Label3.Text = "Waiting for Subject"
         For Each item In newDT2.Rows
@@ -132,7 +107,6 @@ Public Class FaceRecog
                 SchedList.Remove(item)
             End If
         Next
-        BunifuTransition1.HideSync(Panel3)
         BackgroundWorker2.WorkerSupportsCancellation = True
         BackgroundWorker2.RunWorkerAsync()
     End Sub

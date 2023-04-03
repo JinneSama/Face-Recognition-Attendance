@@ -1,6 +1,9 @@
 ﻿Public Class AdminPassword
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim dt As DataTable = SQLConnection.executeQuery("select * from staff where Type='Admin' and Name='" & MainForm.adminName & "' and password ='" & TextBox1.Text & "'")
+        Dim _name As String = MainForm.adminName
+        Dim q As String = "select * from staff where Type='Admin' and Name='" & MainForm.adminName & "' and password ='" & TextBox1.Text & "'"
+        Dim dt As DataTable = SQLConnection.executeQuery(q)
+
         If dt.Rows.Count > 0 Then
             SQLConnection.executeCommand("Update staff set password='" & TextBox2.Text & "' where Type='Admin' and Name='" & MainForm.adminName & "'")
             TextBox1.Text = ""

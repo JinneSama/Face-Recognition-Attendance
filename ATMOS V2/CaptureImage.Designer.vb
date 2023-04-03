@@ -29,10 +29,6 @@ Partial Class CaptureImage
         Me.BunifuThinButton23 = New ns1.BunifuThinButton2()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ListView1 = New System.Windows.Forms.ListView()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
         Me.BunifuThinButton22 = New ns1.BunifuThinButton2()
         Me.BunifuThinButton21 = New ns1.BunifuThinButton2()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
@@ -40,8 +36,6 @@ Partial Class CaptureImage
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.BunifuDragControl1 = New ns1.BunifuDragControl(Me.components)
         Me.Panel1.SuspendLayout()
-        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BunifuImageButton1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -54,10 +48,6 @@ Partial Class CaptureImage
         Me.Panel1.Controls.Add(Me.BunifuThinButton23)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.ListView1)
-        Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Controls.Add(Me.NumericUpDown2)
-        Me.Panel1.Controls.Add(Me.Label2)
-        Me.Panel1.Controls.Add(Me.NumericUpDown1)
         Me.Panel1.Controls.Add(Me.BunifuThinButton22)
         Me.Panel1.Controls.Add(Me.BunifuThinButton21)
         Me.Panel1.Controls.Add(Me.PictureBox2)
@@ -88,7 +78,7 @@ Partial Class CaptureImage
         Me.BunifuThinButton24.IdleForecolor = System.Drawing.Color.WhiteSmoke
         Me.BunifuThinButton24.IdleLineColor = System.Drawing.Color.Black
         Me.BunifuThinButton24.Location = New System.Drawing.Point(443, 358)
-        Me.BunifuThinButton24.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BunifuThinButton24.Margin = New System.Windows.Forms.Padding(4)
         Me.BunifuThinButton24.Name = "BunifuThinButton24"
         Me.BunifuThinButton24.Size = New System.Drawing.Size(180, 38)
         Me.BunifuThinButton24.TabIndex = 38
@@ -101,6 +91,7 @@ Partial Class CaptureImage
         Me.BunifuThinButton23.ActiveFillColor = System.Drawing.Color.Black
         Me.BunifuThinButton23.ActiveForecolor = System.Drawing.Color.White
         Me.BunifuThinButton23.ActiveLineColor = System.Drawing.Color.Black
+        Me.BunifuThinButton23.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BunifuThinButton23.BackColor = System.Drawing.Color.Gray
         Me.BunifuThinButton23.BackgroundImage = CType(resources.GetObject("BunifuThinButton23.BackgroundImage"), System.Drawing.Image)
         Me.BunifuThinButton23.ButtonText = "Add to List"
@@ -113,7 +104,7 @@ Partial Class CaptureImage
         Me.BunifuThinButton23.IdleForecolor = System.Drawing.Color.WhiteSmoke
         Me.BunifuThinButton23.IdleLineColor = System.Drawing.Color.Black
         Me.BunifuThinButton23.Location = New System.Drawing.Point(958, 376)
-        Me.BunifuThinButton23.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BunifuThinButton23.Margin = New System.Windows.Forms.Padding(4)
         Me.BunifuThinButton23.Name = "BunifuThinButton23"
         Me.BunifuThinButton23.Size = New System.Drawing.Size(180, 38)
         Me.BunifuThinButton23.TabIndex = 37
@@ -121,6 +112,7 @@ Partial Class CaptureImage
         '
         'Label1
         '
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(661, 394)
@@ -131,53 +123,15 @@ Partial Class CaptureImage
         '
         'ListView1
         '
+        Me.ListView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListView1.HideSelection = False
         Me.ListView1.Location = New System.Drawing.Point(664, 12)
         Me.ListView1.Name = "ListView1"
         Me.ListView1.Size = New System.Drawing.Size(477, 362)
         Me.ListView1.TabIndex = 35
         Me.ListView1.UseCompatibleStateImageBehavior = False
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(429, 257)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(126, 15)
-        Me.Label3.TabIndex = 34
-        Me.Label3.Text = "Image per Second:"
-        '
-        'NumericUpDown2
-        '
-        Me.NumericUpDown2.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NumericUpDown2.Location = New System.Drawing.Point(561, 256)
-        Me.NumericUpDown2.Name = "NumericUpDown2"
-        Me.NumericUpDown2.Size = New System.Drawing.Size(81, 22)
-        Me.NumericUpDown2.TabIndex = 33
-        Me.NumericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown2.Value = New Decimal(New Integer() {10, 0, 0, 0})
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(429, 225)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(98, 15)
-        Me.Label2.TabIndex = 32
-        Me.Label2.Text = "Total Images:"
-        '
-        'NumericUpDown1
-        '
-        Me.NumericUpDown1.Font = New System.Drawing.Font("Consolas", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NumericUpDown1.Location = New System.Drawing.Point(561, 224)
-        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(81, 22)
-        Me.NumericUpDown1.TabIndex = 31
-        Me.NumericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown1.Value = New Decimal(New Integer() {100, 0, 0, 0})
         '
         'BunifuThinButton22
         '
@@ -198,7 +152,7 @@ Partial Class CaptureImage
         Me.BunifuThinButton22.IdleForecolor = System.Drawing.Color.WhiteSmoke
         Me.BunifuThinButton22.IdleLineColor = System.Drawing.Color.Black
         Me.BunifuThinButton22.Location = New System.Drawing.Point(443, 285)
-        Me.BunifuThinButton22.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BunifuThinButton22.Margin = New System.Windows.Forms.Padding(4)
         Me.BunifuThinButton22.Name = "BunifuThinButton22"
         Me.BunifuThinButton22.Size = New System.Drawing.Size(180, 38)
         Me.BunifuThinButton22.TabIndex = 28
@@ -223,7 +177,7 @@ Partial Class CaptureImage
         Me.BunifuThinButton21.IdleForecolor = System.Drawing.Color.WhiteSmoke
         Me.BunifuThinButton21.IdleLineColor = System.Drawing.Color.Black
         Me.BunifuThinButton21.Location = New System.Drawing.Point(443, 322)
-        Me.BunifuThinButton21.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BunifuThinButton21.Margin = New System.Windows.Forms.Padding(4)
         Me.BunifuThinButton21.Name = "BunifuThinButton21"
         Me.BunifuThinButton21.Size = New System.Drawing.Size(180, 38)
         Me.BunifuThinButton21.TabIndex = 27
@@ -243,7 +197,6 @@ Partial Class CaptureImage
         'BunifuImageButton1
         '
         Me.BunifuImageButton1.BackColor = System.Drawing.Color.Transparent
-        Me.BunifuImageButton1.Image = Global.ATMOS_V2.My.Resources.Resources.icons8_close_96
         Me.BunifuImageButton1.ImageActive = Nothing
         Me.BunifuImageButton1.Location = New System.Drawing.Point(773, 12)
         Me.BunifuImageButton1.Name = "BunifuImageButton1"
@@ -283,8 +236,6 @@ Partial Class CaptureImage
         Me.Text = "CaptureImage"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BunifuImageButton1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -299,10 +250,6 @@ Partial Class CaptureImage
     Friend WithEvents BunifuThinButton21 As ns1.BunifuThinButton2
     Friend WithEvents BunifuThinButton22 As ns1.BunifuThinButton2
     Friend WithEvents ListView1 As ListView
-    Friend WithEvents Label3 As Label
-    Friend WithEvents NumericUpDown2 As NumericUpDown
-    Friend WithEvents Label2 As Label
-    Friend WithEvents NumericUpDown1 As NumericUpDown
     Friend WithEvents Label1 As Label
     Friend WithEvents BunifuThinButton23 As ns1.BunifuThinButton2
     Friend WithEvents BunifuThinButton24 As ns1.BunifuThinButton2

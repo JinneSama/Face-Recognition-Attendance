@@ -151,7 +151,7 @@ Public Class FaceModel
         Dim path As String = Directory.GetCurrentDirectory() + "\TrainingImages"
         Dim files As String() = Directory.GetFiles(path, "*.jpg", SearchOption.AllDirectories)
 
-        Dim Iterations As Integer = 20
+        Dim Iterations As Integer = 1
         faceLabels.Clear()
         labelNames.Clear()
         For i As Integer = 1 To Iterations
